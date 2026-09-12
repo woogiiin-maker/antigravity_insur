@@ -1,0 +1,25 @@
+﻿{
+  " name\: \우리가족보험\,
+ \short_name\: \가족보험\,
+ \description\: \우리가족 맞춤형 스마트 보험 보장 분석 및 관리\,
+ \start_url\: \./\,
+ \scope\: \./\,
+ \display\: \standalone\,
+ \background_color\: \#f8fafc\,
+ \theme_color\: \#2563eb\,
+ \orientation\: \portrait-primary\,
+ \icons\: [
+ {
+ \src\: \./icon-192.png\,
+ \sizes\: \192x192\,
+ \type\: \image/png\,
+ \purpose\: \any maskable\
+ },
+ {
+ \src\: \./icon-512.png\,
+ \sizes\: \512x512\,
+ \type\: \image/png\,
+ \purpose\: \any maskable\
+ }
+ ]
+}

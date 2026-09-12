@@ -8,13 +8,23 @@
     <meta name="apple-mobile-web-app-title" content="우리가족보험" />
     <meta name="theme-color" content="#2563eb" />
     <title>가족 보험 관리 매니저</title>
+    <link rel="manifest" href="./manifest.json" />
+    <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png" />
+    <link rel="apple-touch-icon" href="./icon-192.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <script type="module" crossorigin src="./assets/index-DuQOho9S.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-BRwkTCMp.css">
+    <script type="module" crossorigin src="./assets/index-lWuYPAHi.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BnNojPH9.css">
   </head>
   <body class="bg-slate-50 text-slate-900 font-sans antialiased min-h-screen select-none">
     <div id="root"></div>
+    <script>
+      if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('./sw.js').catch(() => {});
+        });
+      }
+    </script>
   </body>
 </html>
