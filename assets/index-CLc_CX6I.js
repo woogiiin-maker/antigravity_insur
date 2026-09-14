@@ -1161,10 +1161,11 @@ const PolicyPeriodEditModal = ({ isOpen, onClose, policy, dateInfo, onSave }) =>
   });
 };
 
-const PolicyListModal = ({ isOpen, onClose, selectedKey, setSelectedKey, records, customPolicyOrder, onSelectPolicyForMain, activeFamilyTab, onUpdatePolicyContractDate }) => {
+const PolicyListModal = ({ isOpen, onClose, selectedKey, setSelectedKey, records, customPolicyOrder, onSelectPolicyForMain, activeFamilyTab, onUpdatePolicyDatesAndPeriod }) => {
   if (!isOpen) return null;
-  const [filterFam, setFilterFam] = Qe.useState(activeFamilyTab || "ALL");
+  const [filterFam, setFilterFam] = Qe.useState("ALL");
   const [search, setSearch] = Qe.useState("");
+  const [isPeriodEditOpen, setIsPeriodEditOpen] = Qe.useState(!1);
 
   Qe.useEffect(() => {
     if (selectedKey) {
@@ -1616,6 +1617,13 @@ const PolicyListModal = ({ isOpen, onClose, selectedKey, setSelectedKey, records
               children: "닫기"
             })
           ]
+        }),
+        isPeriodEditOpen && selectedPolicy && u.jsx(PolicyPeriodEditModal, {
+          isOpen: isPeriodEditOpen,
+          onClose: () => setIsPeriodEditOpen(!1),
+          policy: selectedPolicy,
+          dateInfo: selectedDateInfo,
+          onSave: (dt) => onUpdatePolicyDatesAndPeriod && onUpdatePolicyDatesAndPeriod(selectedPolicy, dt)
         })
       ]
     })
