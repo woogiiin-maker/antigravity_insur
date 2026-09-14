@@ -1,9 +1,13 @@
-﻿const CACHE_NAME = 'family-insurance-cache-v1';
+const CACHE_NAME = 'family-insurance-cache-v2';
 self.addEventListener('install', (e) => {
- self.skipWaiting();
+  self.skipWaiting();
 });
 self.addEventListener('activate', (e) => {
- e.waitUntil(self.clients.claim());
+  e.waitUntil(
+    caches.keys().then((keys) =>
+      Promise.all(keys.map((k) => (k !== CACHE_NAME ? caches.delete(k) : null)))
+    ).then(() => self.clients.claim())
+  );
 });
 self.addEventListener('fetch', (e) => {
  e.respondWith(
