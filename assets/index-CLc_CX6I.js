@@ -1604,11 +1604,25 @@ const PolicyListModal = ({ isOpen, onClose, selectedKey, setSelectedKey, records
                   u.jsx("div", {
                     className: "divide-y divide-slate-100 border border-slate-200 rounded-xl overflow-hidden bg-white text-xs",
                     children: selectedPolicy.riders.map((r, idx) => u.jsxs("div", {
-                      className: `p-3 hover:bg-slate-50/80 transition space-y-1 ${
-                        ((/무재해상해|무재해사망|재해상해특약/.test(r.세부보장명 || "") || r.보장분류 === "상해후유장해") && !/휴일|교통|자가용|자전거/.test((r.세부보장명 || "") + (r.보장내용 || "")))
-                          ? "bg-rose-50/25"
-                          : ""
-                      }`,
+                      className: (() => {
+                        const n = r.세부보장명 || "", d = r.보장내용 || "", c = r.보장분류 || "기타";
+                        const cond = /휴일|교통|자가용|자전거/.test(n + d);
+                        const isInj = ((/무재해상해|무재해사망|재해상해특약/.test(n) || c === "상해후유장해" || /일반상해.*후유장해|상해후유장해\(3|일반상해80%이상후유장해/.test(n)) && !cond);
+                        const isDis = (/질병.*(후유장해|장해|고도장해)|특정고도장해/.test(n) || c === "질병후유장해");
+                        const nonCoreC = /유사암|소액암|상피내암|경계성|갑상선|기타피부|소아암|소아백혈병|재진단암|특정암|여성특정암|방사선|약물|치료|생활|통원|수술|입원/.test(n);
+                        const isCDiag = (c === "암" || /암/.test(n)) && (/(암진단비|암진단담보|암진단특약|암진단급여금|일반암진단|일반암.*진단|암진단\s*([IⅠⅡ1-9]+|\b))/.test(n) || /암.*진단/.test(n)) && !nonCoreC;
+                        const isBDiag = (c === "뇌질환" || /뇌혈관|뇌졸중|뇌출혈/.test(n)) && /뇌혈관(질환)?진단/.test(n) && !/수술|입원|치료|재활/.test(n);
+                        const isHDiag = (c === "심장질환" || /허혈|심근경색|심혈관/.test(n)) && /허혈(성)?(심장|심)?질환진단/.test(n) && !/수술|입원|치료|주요치료/.test(n);
+                        const isCTreat = /암.*(주요치료|치료비|치료자금|치료특약|항암|방사선|약물치료|표적항암|중입자)/.test(n) && !/생활|지원비|생활자금/.test(n);
+                        const isCLife = /암.*(주요치료.*생활|치료.*생활|생활자금|생활비|케어)/.test(n);
+                        const isCirc = /순환계.*(주요치료|치료|진단)|심뇌혈관.*(주요치료|치료)|2대질환.*치료|혈전용해/.test(n);
+                        const isDSurg = ((/(1[-~]5종|1[-~]7종|1[-~]8종|종수술)/.test(n) && /질병|무배당|무파워/.test(n) && !/상해/.test(n)) || (/질병.*(수술|1[-~]5종)|수술급여금/.test(n) && !/상해/.test(n)) || (c === "수술·입원" && /질병수술/.test(n) && !/상해/.test(n)));
+                        const isISurg = ((/상해.*(수술|1[-~]5종)/.test(n) || (c === "수술·입원" && /상해수술/.test(n))) && !/질병/.test(n));
+                        const isCore = isInj || isDis || isCDiag || isBDiag || isHDiag || isCTreat || isCLife || isCirc || isDSurg || isISurg;
+                        return isCore
+                          ? "p-3 hover:bg-slate-50/80 transition space-y-1 bg-rose-50/25"
+                          : "p-3 hover:bg-slate-50/80 transition space-y-1";
+                      })(),
                       children: [
                         u.jsxs("div", {
                           className: "flex items-center justify-between gap-2 flex-wrap",
@@ -1619,30 +1633,40 @@ const PolicyListModal = ({ isOpen, onClose, selectedKey, setSelectedKey, records
                                   const n = r.세부보장명 || "", d = r.보장내용 || "", c = r.보장분류 || "기타";
                                   const cond = /휴일|교통|자가용|자전거/.test(n + d);
                                   const isInj = ((/무재해상해|무재해사망|재해상해특약/.test(n) || c === "상해후유장해" || /일반상해.*후유장해|상해후유장해\(3|일반상해80%이상후유장해/.test(n)) && !cond);
+                                  if (isInj) return "text-[10px] px-1.5 py-0.2 rounded font-bold shrink-0 bg-rose-100 text-rose-800 border border-rose-200";
+                                  if (/질병.*(후유장해|장해|고도장해)|특정고도장해/.test(n) || c === "질병후유장해") return "text-[10px] px-1.5 py-0.2 rounded font-bold shrink-0 bg-rose-100 text-rose-800 border border-rose-200";
                                   const nonCoreC = /유사암|소액암|상피내암|경계성|갑상선|기타피부|소아암|소아백혈병|재진단암|특정암|여성특정암|방사선|약물|치료|생활|통원|수술|입원/.test(n);
-                                  const isCDiag = (c === "암" || /암/.test(n)) && (/(암진단비|암진단담보|암진단특약|암진단급여금|일반암진단|암진단\s*([IⅠⅡ1-9]+|\b))/.test(n) || /암.*진단/.test(n)) && !nonCoreC;
-                                  const isBDiag = (c === "뇌질환" || /뇌혈관|뇌졸중|뇌출혈/.test(n)) && /뇌혈관.*진단|뇌졸중.*진단|뇌출혈.*진단/.test(n);
-                                  const isHDiag = (c === "심장질환" || /허혈|심근경색|심혈관/.test(n)) && /허혈.*진단|심근경색.*진단|심혈관.*진단/.test(n);
-                                  const isDDis = (/질병.*(후유장해|장해|고도장해)|특정고도장해/.test(n) || c === "질병후유장해");
-                                  const isAct = (c === "실손의료비" || /실손의료비/.test(n));
-                                  return (isInj || isCDiag || isBDiag || isHDiag || isDDis || isAct)
-                                    ? "text-[10px] px-1.5 py-0.2 rounded font-bold shrink-0 bg-rose-100 text-rose-800 border border-rose-200"
-                                    : "text-[10px] px-1.5 py-0.2 rounded font-bold shrink-0 bg-slate-100 text-slate-600";
+                                  const isCDiag = (c === "암" || /암/.test(n)) && (/(암진단비|암진단담보|암진단특약|암진단급여금|일반암진단|일반암.*진단|암진단\s*([IⅠⅡ1-9]+|\b))/.test(n) || /암.*진단/.test(n)) && !nonCoreC;
+                                  if (isCDiag) return "text-[10px] px-1.5 py-0.2 rounded font-bold shrink-0 bg-rose-100 text-rose-800 border border-rose-200";
+                                  const isBDiag = (c === "뇌질환" || /뇌혈관|뇌졸중|뇌출혈/.test(n)) && /뇌혈관(질환)?진단/.test(n) && !/수술|입원|치료|재활/.test(n);
+                                  if (isBDiag) return "text-[10px] px-1.5 py-0.2 rounded font-bold shrink-0 bg-rose-100 text-rose-800 border border-rose-200";
+                                  const isHDiag = (c === "심장질환" || /허혈|심근경색|심혈관/.test(n)) && /허혈(성)?(심장|심)?질환진단/.test(n) && !/수술|입원|치료|주요치료/.test(n);
+                                  if (isHDiag) return "text-[10px] px-1.5 py-0.2 rounded font-bold shrink-0 bg-rose-100 text-rose-800 border border-rose-200";
+                                  if (/암.*(주요치료|치료비|치료자금|치료특약|항암|방사선|약물치료|표적항암|중입자)/.test(n) && !/생활|지원비|생활자금/.test(n)) return "text-[10px] px-1.5 py-0.2 rounded font-bold shrink-0 bg-rose-100 text-rose-800 border border-rose-200";
+                                  if (/암.*(주요치료.*생활|치료.*생활|생활자금|생활비|케어)/.test(n)) return "text-[10px] px-1.5 py-0.2 rounded font-bold shrink-0 bg-rose-100 text-rose-800 border border-rose-200";
+                                  if (/순환계.*(주요치료|치료|진단)|심뇌혈관.*(주요치료|치료)|2대질환.*치료|혈전용해/.test(n)) return "text-[10px] px-1.5 py-0.2 rounded font-bold shrink-0 bg-rose-100 text-rose-800 border border-rose-200";
+                                  if ((/(1[-~]5종|1[-~]7종|1[-~]8종|종수술)/.test(n) && /질병|무배당|무파워/.test(n) && !/상해/.test(n)) || (/질병.*(수술|1[-~]5종)|수술급여금/.test(n) && !/상해/.test(n)) || (c === "수술·입원" && /질병수술/.test(n) && !/상해/.test(n))) return "text-[10px] px-1.5 py-0.2 rounded font-bold shrink-0 bg-rose-100 text-rose-800 border border-rose-200";
+                                  if ((/상해.*(수술|1[-~]5종)/.test(n) || (c === "수술·입원" && /상해수술/.test(n))) && !/질병/.test(n)) return "text-[10px] px-1.5 py-0.2 rounded font-bold shrink-0 bg-rose-100 text-rose-800 border border-rose-200";
+                                  return "text-[10px] px-1.5 py-0.2 rounded font-bold shrink-0 bg-slate-100 text-slate-600";
                                 })(),
                                 children: (() => {
                                   const n = r.세부보장명 || "", d = r.보장내용 || "", c = r.보장분류 || "기타";
                                   const cond = /휴일|교통|자가용|자전거/.test(n + d);
                                   const isInj = ((/무재해상해|무재해사망|재해상해특약/.test(n) || c === "상해후유장해" || /일반상해.*후유장해|상해후유장해\(3|일반상해80%이상후유장해/.test(n)) && !cond);
                                   if (isInj) return "상해후유장해";
-                                  const nonCoreC = /유사암|소액암|상피내암|경계성|갑상선|기타피부|소아암|소아백혈병|재진단암|특정암|여성특정암|방사선|약물|치료|생활|통원|수술|입원/.test(n);
-                                  const isCDiag = (c === "암" || /암/.test(n)) && (/(암진단비|암진단담보|암진단특약|암진단급여금|일반암진단|암진단\s*([IⅠⅡ1-9]+|\b))/.test(n) || /암.*진단/.test(n)) && !nonCoreC;
-                                  if (isCDiag) return "암진단비";
-                                  const isBDiag = (c === "뇌질환" || /뇌혈관|뇌졸중|뇌출혈/.test(n)) && /뇌혈관.*진단|뇌졸중.*진단|뇌출혈.*진단/.test(n);
-                                  if (isBDiag) return "뇌혈관진단비";
-                                  const isHDiag = (c === "심장질환" || /허혈|심근경색|심혈관/.test(n)) && /허혈.*진단|심근경색.*진단|심혈관.*진단/.test(n);
-                                  if (isHDiag) return "심장질환진단비";
                                   if (/질병.*(후유장해|장해|고도장해)|특정고도장해/.test(n) || c === "질병후유장해") return "질병후유장해";
-                                  if (c === "실손의료비" || /실손의료비/.test(n)) return "실손의료비";
+                                  const nonCoreC = /유사암|소액암|상피내암|경계성|갑상선|기타피부|소아암|소아백혈병|재진단암|특정암|여성특정암|방사선|약물|치료|생활|통원|수술|입원/.test(n);
+                                  const isCDiag = (c === "암" || /암/.test(n)) && (/(암진단비|암진단담보|암진단특약|암진단급여금|일반암진단|일반암.*진단|암진단\s*([IⅠⅡ1-9]+|\b))/.test(n) || /암.*진단/.test(n)) && !nonCoreC;
+                                  if (isCDiag) return "암진단비";
+                                  const isBDiag = (c === "뇌질환" || /뇌혈관|뇌졸중|뇌출혈/.test(n)) && /뇌혈관(질환)?진단/.test(n) && !/수술|입원|치료|재활/.test(n);
+                                  if (isBDiag) return "뇌혈관질환진단비";
+                                  const isHDiag = (c === "심장질환" || /허혈|심근경색|심혈관/.test(n)) && /허혈(성)?(심장|심)?질환진단/.test(n) && !/수술|입원|치료|주요치료/.test(n);
+                                  if (isHDiag) return "허혈성심질환진단비";
+                                  if (/암.*(주요치료|치료비|치료자금|치료특약|항암|방사선|약물치료|표적항암|중입자)/.test(n) && !/생활|지원비|생활자금/.test(n)) return "암주요치료비";
+                                  if (/암.*(주요치료.*생활|치료.*생활|생활자금|생활비|케어)/.test(n)) return "암주요치료생활비";
+                                  if (/순환계.*(주요치료|치료|진단)|심뇌혈관.*(주요치료|치료)|2대질환.*치료|혈전용해/.test(n)) return "순환계질환치료비";
+                                  if ((/(1[-~]5종|1[-~]7종|1[-~]8종|종수술)/.test(n) && /질병|무배당|무파워/.test(n) && !/상해/.test(n)) || (/질병.*(수술|1[-~]5종)|수술급여금/.test(n) && !/상해/.test(n)) || (c === "수술·입원" && /질병수술/.test(n) && !/상해/.test(n))) return "질병수술비";
+                                  if ((/상해.*(수술|1[-~]5종)/.test(n) || (c === "수술·입원" && /상해수술/.test(n))) && !/질병/.test(n)) return "상해수술비";
                                   if (c === "암" || /암/.test(n)) return "암";
                                   if (c === "뇌질환" || /뇌/.test(n)) return "뇌질환";
                                   if (c === "심장질환" || /심장|심근/.test(n)) return "심장질환";
