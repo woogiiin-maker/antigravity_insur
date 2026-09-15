@@ -1,4 +1,4 @@
-const CACHE_NAME = 'family-insurance-cache-v23';
+const CACHE_NAME = 'family-insurance-cache-v24';
 self.addEventListener('install', (e) => {
   self.skipWaiting();
 });
