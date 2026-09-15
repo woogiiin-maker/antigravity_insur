@@ -1603,53 +1603,41 @@ const PolicyListModal = ({ isOpen, onClose, selectedKey, setSelectedKey, records
                   }),
                   u.jsx("div", {
                     className: "divide-y divide-slate-100 border border-slate-200 rounded-xl overflow-hidden bg-white text-xs",
-                    children: selectedPolicy.riders.map((r, idx) => {
-                      const rName = r.세부보장명 || "";
-                      const rDesc = r.보장내용 || "";
-                      const isConditional = /휴일|교통|자가용|자전거/.test(rName + rDesc);
-                      const isInjury = (/무재해상해|무재해사망|재해상해특약/.test(rName) || r.보장분류 === "상해후유장해") && !isConditional;
-                      const cat = isInjury ? "상해후유장해" : (r.보장분류 || "기타");
-                      const isCore = isInjury || /암|뇌질환|심장질환|상해후유장해|질병후유장해|실손의료비/.test(cat);
-
-                      return u.jsxs("div", {
-                        className: `p-3 transition space-y-1 ${
-                          isInjury
-                            ? "bg-rose-50/30 hover:bg-rose-50/60"
-                            : isCore
-                            ? "bg-slate-50/40 hover:bg-slate-100/70"
-                            : "hover:bg-slate-50/80"
-                        }`,
-                        children: [
-                          u.jsxs("div", {
-                            className: "flex items-center justify-between gap-2 flex-wrap",
-                            children: [
-                              u.jsxs("div", { className: "flex items-center gap-1.5 min-w-0", children: [
+                    children: selectedPolicy.riders.map((r, idx) => u.jsxs("div", {
+                      className: `p-3 hover:bg-slate-50/80 transition space-y-1 ${
+                        ((/무재해상해|무재해사망|재해상해특약/.test(r.세부보장명 || "") || r.보장분류 === "상해후유장해") && !/휴일|교통|자가용|자전거/.test((r.세부보장명 || "") + (r.보장내용 || "")))
+                          ? "bg-rose-50/25"
+                          : ""
+                      }`,
+                      children: [
+                        u.jsxs("div", {
+                          className: "flex items-center justify-between gap-2 flex-wrap",
+                          children: [
+                            u.jsxs("div", { className: "flex items-center gap-1.5 min-w-0", children: [
                               u.jsx("span", {
-                                className: (() => {
-                                  const rName = r.세부보장명 || "";
-                                  const rDesc = r.보장내용 || "";
-                                  const isConditional = /휴일|교통|자가용|자전거/.test(rName + rDesc);
-                                  const isInjury = (/무재해상해|무재해사망|재해상해특약/.test(rName) || r.보장분류 === "상해후유장해") && !isConditional;
-                                  const cat = isInjury ? "상해후유장해" : (r.보장분류 || "기타");
-                                  if (isInjury || cat === "상해후유장해") return "text-[10px] px-1.5 py-0.2 rounded font-bold shrink-0 bg-rose-100 text-rose-800 border border-rose-200";
-                                  if (cat === "암") return "text-[10px] px-1.5 py-0.2 rounded font-bold shrink-0 bg-red-100 text-red-800 border border-red-200";
-                                  if (cat === "뇌질환") return "text-[10px] px-1.5 py-0.2 rounded font-bold shrink-0 bg-purple-100 text-purple-800 border border-purple-200";
-                                  if (cat === "심장질환") return "text-[10px] px-1.5 py-0.2 rounded font-bold shrink-0 bg-amber-100 text-amber-800 border border-amber-200";
-                                  if (cat === "실손의료비") return "text-[10px] px-1.5 py-0.2 rounded font-bold shrink-0 bg-emerald-100 text-emerald-800 border border-emerald-200";
-                                  if (cat === "질병후유장해") return "text-[10px] px-1.5 py-0.2 rounded font-bold shrink-0 bg-pink-100 text-pink-800 border border-pink-200";
-                                  if (cat === "사망") return "text-[10px] px-1.5 py-0.2 rounded font-bold shrink-0 bg-slate-200 text-slate-800 border border-slate-300";
-                                  return "text-[10px] px-1.5 py-0.2 rounded font-bold shrink-0 bg-slate-100 text-slate-600";
-                                })(),
-                                children: (() => {
-                                  const rName = r.세부보장명 || "";
-                                  const rDesc = r.보장내용 || "";
-                                  const isConditional = /휴일|교통|자가용|자전거/.test(rName + rDesc);
-                                  const isInjury = (/무재해상해|무재해사망|재해상해특약/.test(rName) || r.보장분류 === "상해후유장해") && !isConditional;
-                                  return isInjury ? "상해후유장해" : (r.보장분류 || "기타");
-                                })()
+                                className: `text-[10px] px-1.5 py-0.2 rounded font-bold shrink-0 ${
+                                  ((/무재해상해|무재해사망|재해상해특약/.test(r.세부보장명 || "") || r.보장분류 === "상해후유장해") && !/휴일|교통|자가용|자전거/.test((r.세부보장명 || "") + (r.보장내용 || "")))
+                                    ? "bg-rose-100 text-rose-800 border border-rose-200"
+                                    : r.보장분류 === "암"
+                                    ? "bg-red-100 text-red-800 border border-red-200"
+                                    : r.보장분류 === "뇌질환"
+                                    ? "bg-purple-100 text-purple-800 border border-purple-200"
+                                    : r.보장분류 === "심장질환"
+                                    ? "bg-amber-100 text-amber-800 border border-amber-200"
+                                    : r.보장분류 === "실손의료비"
+                                    ? "bg-emerald-100 text-emerald-800 border border-emerald-200"
+                                    : "bg-slate-100 text-slate-600"
+                                }`,
+                                children: ((/무재해상해|무재해사망|재해상해특약/.test(r.세부보장명 || "") || r.보장분류 === "상해후유장해") && !/휴일|교통|자가용|자전거/.test((r.세부보장명 || "") + (r.보장내용 || "")))
+                                  ? "상해후유장해"
+                                  : (r.보장분류 || "기타")
                               }),
                               u.jsx("span", { className: "font-bold text-slate-900 truncate", children: r.세부보장명 }),
-                              isCore ? u.jsx("span", { className: `text-[9px] px-1 py-0.2 rounded font-black shrink-0 ${isInjury ? "bg-rose-100 text-rose-800 border border-rose-300" : "bg-blue-100 text-blue-800 border border-blue-200"}`, children: "핵심" }) : null
+                              ((/무재해상해|무재해사망|재해상해특약/.test(r.세부보장명 || "") || r.보장분류 === "상해후유장해") && !/휴일|교통|자가용|자전거/.test((r.세부보장명 || "") + (r.보장내용 || "")))
+                                ? u.jsx("span", { className: "text-[9px] px-1 py-0.2 rounded font-black shrink-0 bg-rose-100 text-rose-800 border border-rose-300", children: "핵심" })
+                                : (/암|뇌질환|심장질환|실손의료비|질병후유장해/.test(r.보장분류 || ""))
+                                ? u.jsx("span", { className: "text-[9px] px-1 py-0.2 rounded font-black shrink-0 bg-blue-100 text-blue-800 border border-blue-200", children: "핵심" })
+                                : null
                             ]}),
                             u.jsx("span", { className: "font-black text-blue-700 shrink-0", children: r.보장금액 || (r.보장금액_원 > 0 ? en(r.보장금액_원) : "-") })
                           ]
@@ -1675,8 +1663,7 @@ const PolicyListModal = ({ isOpen, onClose, selectedKey, setSelectedKey, records
                         }),
                         r.보장내용 && u.jsx("p", { className: "text-[11px] text-slate-500 bg-slate-50 p-2 rounded-lg leading-relaxed mt-1", children: r.보장내용 })
                       ]
-                    }, r.id || idx);
-                    })
+                    }, r.id || idx))
                   })
                 ]
               })
