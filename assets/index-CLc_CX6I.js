@@ -1675,7 +1675,8 @@ const PolicyListModal = ({ isOpen, onClose, selectedKey, setSelectedKey, records
                         }),
                         r.보장내용 && u.jsx("p", { className: "text-[11px] text-slate-500 bg-slate-50 p-2 rounded-lg leading-relaxed mt-1", children: r.보장내용 })
                       ]
-                    }, r.id || idx))
+                    }, r.id || idx);
+                    })
                   })
                 ]
               })
