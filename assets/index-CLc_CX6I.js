@@ -1615,29 +1615,41 @@ const PolicyListModal = ({ isOpen, onClose, selectedKey, setSelectedKey, records
                           children: [
                             u.jsxs("div", { className: "flex items-center gap-1.5 min-w-0", children: [
                               u.jsx("span", {
-                                className: `text-[10px] px-1.5 py-0.2 rounded font-bold shrink-0 ${
-                                  ((/무재해상해|무재해사망|재해상해특약/.test(r.세부보장명 || "") || r.보장분류 === "상해후유장해") && !/휴일|교통|자가용|자전거/.test((r.세부보장명 || "") + (r.보장내용 || "")))
-                                    ? "bg-rose-100 text-rose-800 border border-rose-200"
-                                    : r.보장분류 === "암"
-                                    ? "bg-red-100 text-red-800 border border-red-200"
-                                    : r.보장분류 === "뇌질환"
-                                    ? "bg-purple-100 text-purple-800 border border-purple-200"
-                                    : r.보장분류 === "심장질환"
-                                    ? "bg-amber-100 text-amber-800 border border-amber-200"
-                                    : r.보장분류 === "실손의료비"
-                                    ? "bg-emerald-100 text-emerald-800 border border-emerald-200"
-                                    : "bg-slate-100 text-slate-600"
-                                }`,
-                                children: ((/무재해상해|무재해사망|재해상해특약/.test(r.세부보장명 || "") || r.보장분류 === "상해후유장해") && !/휴일|교통|자가용|자전거/.test((r.세부보장명 || "") + (r.보장내용 || "")))
-                                  ? "상해후유장해"
-                                  : (r.보장분류 || "기타")
+                                className: (() => {
+                                  const n = r.세부보장명 || "", d = r.보장내용 || "", c = r.보장분류 || "기타";
+                                  const cond = /휴일|교통|자가용|자전거/.test(n + d);
+                                  const isInj = ((/무재해상해|무재해사망|재해상해특약/.test(n) || c === "상해후유장해" || /일반상해.*후유장해|상해후유장해\(3|일반상해80%이상후유장해/.test(n)) && !cond);
+                                  const nonCoreC = /유사암|소액암|상피내암|경계성|갑상선|기타피부|소아암|소아백혈병|재진단암|특정암|여성특정암|방사선|약물|치료|생활|통원|수술|입원/.test(n);
+                                  const isCDiag = (c === "암" || /암/.test(n)) && (/(암진단비|암진단담보|암진단특약|암진단급여금|일반암진단|암진단\s*([IⅠⅡ1-9]+|\b))/.test(n) || /암.*진단/.test(n)) && !nonCoreC;
+                                  const isBDiag = (c === "뇌질환" || /뇌혈관|뇌졸중|뇌출혈/.test(n)) && /뇌혈관.*진단|뇌졸중.*진단|뇌출혈.*진단/.test(n);
+                                  const isHDiag = (c === "심장질환" || /허혈|심근경색|심혈관/.test(n)) && /허혈.*진단|심근경색.*진단|심혈관.*진단/.test(n);
+                                  const isDDis = (/질병.*(후유장해|장해|고도장해)|특정고도장해/.test(n) || c === "질병후유장해");
+                                  const isAct = (c === "실손의료비" || /실손의료비/.test(n));
+                                  return (isInj || isCDiag || isBDiag || isHDiag || isDDis || isAct)
+                                    ? "text-[10px] px-1.5 py-0.2 rounded font-bold shrink-0 bg-rose-100 text-rose-800 border border-rose-200"
+                                    : "text-[10px] px-1.5 py-0.2 rounded font-bold shrink-0 bg-slate-100 text-slate-600";
+                                })(),
+                                children: (() => {
+                                  const n = r.세부보장명 || "", d = r.보장내용 || "", c = r.보장분류 || "기타";
+                                  const cond = /휴일|교통|자가용|자전거/.test(n + d);
+                                  const isInj = ((/무재해상해|무재해사망|재해상해특약/.test(n) || c === "상해후유장해" || /일반상해.*후유장해|상해후유장해\(3|일반상해80%이상후유장해/.test(n)) && !cond);
+                                  if (isInj) return "상해후유장해";
+                                  const nonCoreC = /유사암|소액암|상피내암|경계성|갑상선|기타피부|소아암|소아백혈병|재진단암|특정암|여성특정암|방사선|약물|치료|생활|통원|수술|입원/.test(n);
+                                  const isCDiag = (c === "암" || /암/.test(n)) && (/(암진단비|암진단담보|암진단특약|암진단급여금|일반암진단|암진단\s*([IⅠⅡ1-9]+|\b))/.test(n) || /암.*진단/.test(n)) && !nonCoreC;
+                                  if (isCDiag) return "암진단비";
+                                  const isBDiag = (c === "뇌질환" || /뇌혈관|뇌졸중|뇌출혈/.test(n)) && /뇌혈관.*진단|뇌졸중.*진단|뇌출혈.*진단/.test(n);
+                                  if (isBDiag) return "뇌혈관진단비";
+                                  const isHDiag = (c === "심장질환" || /허혈|심근경색|심혈관/.test(n)) && /허혈.*진단|심근경색.*진단|심혈관.*진단/.test(n);
+                                  if (isHDiag) return "심장질환진단비";
+                                  if (/질병.*(후유장해|장해|고도장해)|특정고도장해/.test(n) || c === "질병후유장해") return "질병후유장해";
+                                  if (c === "실손의료비" || /실손의료비/.test(n)) return "실손의료비";
+                                  if (c === "암" || /암/.test(n)) return "암";
+                                  if (c === "뇌질환" || /뇌/.test(n)) return "뇌질환";
+                                  if (c === "심장질환" || /심장|심근/.test(n)) return "심장질환";
+                                  return c || "기타";
+                                })()
                               }),
-                              u.jsx("span", { className: "font-bold text-slate-900 truncate", children: r.세부보장명 }),
-                              ((/무재해상해|무재해사망|재해상해특약/.test(r.세부보장명 || "") || r.보장분류 === "상해후유장해") && !/휴일|교통|자가용|자전거/.test((r.세부보장명 || "") + (r.보장내용 || "")))
-                                ? u.jsx("span", { className: "text-[9px] px-1 py-0.2 rounded font-black shrink-0 bg-rose-100 text-rose-800 border border-rose-300", children: "핵심" })
-                                : (/암|뇌질환|심장질환|실손의료비|질병후유장해/.test(r.보장분류 || ""))
-                                ? u.jsx("span", { className: "text-[9px] px-1 py-0.2 rounded font-black shrink-0 bg-blue-100 text-blue-800 border border-blue-200", children: "핵심" })
-                                : null
+                              u.jsx("span", { className: "font-bold text-slate-900 truncate", children: r.세부보장명 })
                             ]}),
                             u.jsx("span", { className: "font-black text-blue-700 shrink-0", children: r.보장금액 || (r.보장금액_원 > 0 ? en(r.보장금액_원) : "-") })
                           ]
