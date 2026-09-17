@@ -929,50 +929,138 @@ function formatKoreanDateWithDay(dateInput, defaultText = "-") {
   return `${y}-${m}-${day}(${dw})`;
 }
 
+const FAM_BIRTH_MAP = {
+  "김건형": "1976-10-28",
+  "남욱": "1975-07-27",
+  "남검재": "2012-06-07",
+  "남차율": "2014-06-05",
+  "남주하": "2016-09-20"
+};
+
+function parseDateRobust(val) {
+  if (!val) return null;
+  const s = String(val).trim();
+  const m1 = s.match(/(\d{4})[-./](\d{1,2})[-./](\d{1,2})/);
+  if (m1) return new Date(parseInt(m1[1], 10), parseInt(m1[2], 10) - 1, parseInt(m1[3], 10));
+  const m2 = s.match(/\b(19\d{2}|20\d{2})(\d{2})(\d{2})\b/);
+  if (m2) return new Date(parseInt(m2[1], 10), parseInt(m2[2], 10) - 1, parseInt(m2[3], 10));
+  const p = Date.parse(s);
+  if (!isNaN(p)) return new Date(p);
+  return null;
+}
+
 function getPolicyDateInfo(policy) {
   const r0 = (policy && policy.riders && policy.riders[0]) || {};
   const polNum = (policy && policy.policyNumber) || r0.증권번호 || "";
   const polName = (policy && policy.productName) || r0.보험상품명 || "";
   const compName = (policy && policy.company) || r0.보험사 || "";
-  
-  // 1. Known exact policy database mapping
+  const famName = (policy && policy.familyName) || r0.가족이름 || "";
+
+  // 1. Birth Date resolution
+  let birthDate = parseDateRobust(r0.생년월일);
+  if (!birthDate && famName && FAM_BIRTH_MAP[famName]) {
+    birthDate = parseDateRobust(FAM_BIRTH_MAP[famName]);
+  }
+
+  // 2. Known Exact Database Mapping
   let knownStart = "";
   let knownEnd = "";
   let knownMaturityDesc = "";
 
-  if (polNum.includes("04780061010050") || polName.includes("삼성리빙케어")) {
+  // 김건형
+  if (polNum.includes("04780061010050") || polNum.includes("4780061010050") || polName.includes("삼성리빙케어")) {
     knownStart = "2005-12-27";
     knownEnd = "2056-12-27";
-    knownMaturityDesc = "2056-12-27 80세만기 (주보험 종신)";
-  } else if (polName.includes("여성시대") || polNum.includes("04780061010033")) {
+    knownMaturityDesc = "2056-12-27 (80세만기 / 주보험 종신)";
+  } else if (polName.includes("여성시대") || polNum.includes("04780061010033") || polNum.includes("4780061010033")) {
     knownStart = "1999-10-15";
     knownEnd = "2056-10-15";
-    knownMaturityDesc = "2056-10-15 80세만기";
-  } else if (polName.includes("내삶엔") || polName.includes("Hi2607") || polNum.includes("Hi2607")) {
-    knownStart = "2026-08-07";
-    knownEnd = "2075-08-07";
-    knownMaturityDesc = "2075-08-07 100세만기";
+    knownMaturityDesc = "2056-10-15 (80세만기 / 57년만기)";
+  } else if (polName.includes("라이프케어") || polNum.includes("68R90561")) {
+    knownStart = "2008-08-01";
+    knownEnd = "2076-10-28";
+    knownMaturityDesc = "2076-10-28 (100세만기)";
+  } else if (polName.includes("오투") || polName.includes("O2") || polNum.includes("Hi2511") || polNum.includes("55504510")) {
+    knownStart = "2025-11-01";
+    knownEnd = "2076-10-28";
+    knownMaturityDesc = "2076-10-28 (100세만기)";
+  } else if (polName.includes("뉴하이카") || polNum.includes("Hi2404") || polNum.includes("21607711")) {
+    knownStart = "2024-04-01";
+    knownEnd = "2044-04-01";
+    knownMaturityDesc = "2044-04-01 (20년만기)";
+  }
+  // 남욱
+  else if (polNum.includes("2004-2129192") || polName.includes("무암장수")) {
+    knownStart = "2004-10-15";
+    knownEnd = "2055-07-27";
+    knownMaturityDesc = "2055-07-27 (80세만기)";
   } else if (polNum.includes("109278915") || polName.includes("대한사랑모아CI")) {
     knownStart = "2006-05-15";
-    knownMaturityDesc = "80세만기 (주보험 종신)";
-  } else if (polNum.includes("2004-2129192") || polName.includes("무암장수")) {
-    knownStart = "2004-10-15";
-  } else if (polNum.includes("2012-0212834") || polName.includes("LIG희망플러스")) {
+    knownEnd = "2055-07-27";
+    knownMaturityDesc = "2055-07-27 (80세만기 / 주보험 종신)";
+  } else if (polNum.includes("3203129100006") || polName.includes("플렉스유니버셜")) {
+    knownStart = "2008-04-01";
+    knownMaturityDesc = "종신 (주보험 종신)";
+  } else if (polNum.includes("3203129100009") || polName.includes("프리미엄리치플랜")) {
+    knownStart = "2008-04-01";
+    knownMaturityDesc = "종신 (연금개시전 보험기간)";
+  } else if (polNum.includes("3203129100007") || polName.includes("프리미엄인덱스")) {
+    knownStart = "2008-04-01";
+    knownMaturityDesc = "종신 (제1보험기간)";
+  } else if (polNum.includes("41201170950000") || polName.includes("가족사랑보험")) {
+    knownStart = "2012-01-20";
+    knownEnd = "2075-07-27";
+    knownMaturityDesc = "2075-07-27 (100세만기)";
+  } else if (polNum.includes("30001269033") || (compName.includes("KB라이프") && polName.includes("납입면제형"))) {
+    knownStart = "2024-09-01";
+    knownEnd = "2075-07-27";
+    knownMaturityDesc = "2075-07-27 (100세만기)";
+  } else if (polNum.includes("30000840970") || compName.includes("KB라이프")) {
+    knownStart = "2023-12-09";
+    knownEnd = "2075-07-27";
+    knownMaturityDesc = "2075-07-27 (100세만기)";
+  } else if (polNum.includes("32024") || (compName.includes("DB") && polName.includes("참좋은운전자"))) {
+    knownStart = "2024-04-01";
+    knownEnd = "2044-04-01";
+    knownMaturityDesc = "2044-04-01 (20년만기)";
+  }
+  // 남검재 (2012-06-07)
+  else if (polNum.includes("2012-0212834") || polName.includes("LIG희망플러스")) {
     knownStart = "2012-02-12";
-  } else if (polNum.includes("99513") || polName.includes("스마트아이사랑")) {
-    knownStart = "2013-07-01";
-  } else if (polNum.includes("2016-1425946") || polName.includes("KB희망플러스")) {
-    knownStart = "2016-03-31";
-  } else if (polNum.includes("L-016-17322571") || polName.includes("Hi1603")) {
-    knownStart = "2016-03-31";
-  } else if (polNum.includes("68R90561") || polName.includes("0808")) {
-    knownStart = "2008-08-01";
-  } else if (polNum.includes("L-024-21607711") || polName.includes("Hi2404")) {
-    knownStart = "2024-04-01";
-  } else if (polNum.includes("32024") || (compName.includes("DB") && polName.includes("2404"))) {
-    knownStart = "2024-04-01";
-  } else if (polNum.includes("L-026-14887602") || polName.includes("Hi2601")) {
+    knownEnd = "2112-06-07";
+    knownMaturityDesc = "2112-06-07 (100세만기)";
+  } else if (polNum.includes("L-026-14887602") || (famName === "남검재" && polName.includes("굿앤굿스타"))) {
     knownStart = "2026-01-15";
+    knownEnd = "2112-06-07";
+    knownMaturityDesc = "2112-06-07 (100세만기)";
+  } else if (polNum.includes("2026-6046625") || (famName === "남검재" && polName.includes("Young 플러스"))) {
+    knownStart = "2026-09-11";
+    knownEnd = "2112-06-07";
+    knownMaturityDesc = "2112-06-07 (100세만기)";
+  }
+  // 남차율 (2014-06-05)
+  else if (polNum.includes("99513") || polName.includes("스마트아이사랑")) {
+    knownStart = "2013-07-01";
+    knownEnd = "2114-06-05";
+    knownMaturityDesc = "2114-06-05 (100세만기)";
+  } else if (polNum.includes("2026-6046121") || polNum.includes("RQ26-60709901") || (famName === "남차율" && polName.includes("Young 플러스"))) {
+    knownStart = "2026-09-11";
+    knownEnd = "2114-06-05";
+    knownMaturityDesc = "2114-06-05 (100세만기)";
+  }
+  // 남주하 (2016-09-20)
+  else if (polNum.includes("2016-1425946") || (famName === "남주하" && polName.includes("KB희망플러스"))) {
+    knownStart = "2016-03-31";
+    knownEnd = "2116-09-20";
+    knownMaturityDesc = "2116-09-20 (100세만기)";
+  } else if (polNum.includes("L-016-17322571") || (famName === "남주하" && polName.includes("굿앤굿어린이"))) {
+    knownStart = "2016-03-31";
+    knownEnd = "2116-09-20";
+    knownMaturityDesc = "2116-09-20 (100세만기)";
+  } else if (polNum.includes("2026-6047545") || polNum.includes("RQ26-60708026") || (famName === "남주하" && polName.includes("Young 플러스"))) {
+    knownStart = "2026-09-11";
+    knownEnd = "2116-09-20";
+    knownMaturityDesc = "2116-09-20 (100세만기)";
   }
 
   let explicitStart = knownStart;
@@ -993,56 +1081,30 @@ function getPolicyDateInfo(policy) {
     }
   }
 
-  let birthDate = null;
-  if (r0.생년월일) {
-    const bm = String(r0.생년월일).match(/(\d{4})[-./](\d{1,2})[-./](\d{1,2})/);
-    if (bm) {
-      birthDate = new Date(parseInt(bm[1], 10), parseInt(bm[2], 10) - 1, parseInt(bm[3], 10));
-    } else {
-      const bp = Date.parse(r0.생년월일);
-      if (!isNaN(bp)) birthDate = new Date(bp);
-    }
-  }
-
-  let contractDate = null;
-  if (explicitStart) {
-    const sm = explicitStart.match(/(\d{4})[-./](\d{1,2})[-./](\d{1,2})/);
-    if (sm) contractDate = new Date(parseInt(sm[1], 10), parseInt(sm[2], 10) - 1, parseInt(sm[3], 10));
-  }
+  // Contract date
+  let contractDate = parseDateRobust(explicitStart);
   if (!contractDate && (r0.계약일자 || r0.계약일)) {
-    const km = String(r0.계약일자 || r0.계약일).match(/(\d{4})[-./](\d{1,2})[-./](\d{1,2})/);
-    if (km) contractDate = new Date(parseInt(km[1], 10), parseInt(km[2], 10) - 1, parseInt(km[3], 10));
+    contractDate = parseDateRobust(r0.계약일자 || r0.계약일);
   }
-
-  // Year hint from policyNumber or productName
-  if (!contractDate) {
-    const yrP1 = polNum.match(/\b(19\d{2}|20\d{2})[-_]/);
-    const yrP2 = polNum.match(/L-0?(\d{2})-/);
-    const yrP3 = polName.match(/(?:Hi|hi|L)(\d{2})\d{2}/);
-    if (yrP1) {
-      contractDate = new Date(parseInt(yrP1[1], 10), 0, 1);
-    } else if (yrP2) {
-      const y = parseInt(yrP2[1], 10);
-      contractDate = new Date(y >= 80 ? 1900 + y : 2000 + y, 0, 1);
-    } else if (yrP3) {
-      const y = parseInt(yrP3[1], 10);
-      contractDate = new Date(2000 + y, 0, 1);
+  if (!contractDate && r0.등록일시) {
+    const regDate = parseDateRobust(r0.등록일시);
+    if (regDate && regDate.getFullYear() < 2026) {
+      contractDate = regDate;
     }
   }
 
-  let maturityDate = null;
+  // Maturity date
+  let maturityDate = parseDateRobust(explicitEnd);
   let maturityText = (policy && policy.coveragePeriod) || r0.보장만기 || "";
-  if (explicitEnd) {
-    const em = explicitEnd.match(/(\d{4}[-./]\d{1,2}[-./]\d{1,2})/);
-    if (em) maturityDate = new Date(parseInt(em[1], 10), parseInt(em[2], 10) - 1, parseInt(em[3], 10));
-  }
-  if (!maturityDate && maturityText) {
-    const ageM = maturityText.match(/(\d+)\s*세만기/);
+  const cleanMaturityText = maturityText.replace(/^\(|\)$/g, "").trim();
+
+  if (!maturityDate && cleanMaturityText) {
+    const ageM = cleanMaturityText.match(/(\d+)\s*세만기/);
     if (ageM && birthDate) {
       const age = parseInt(ageM[1], 10);
       maturityDate = new Date(birthDate.getFullYear() + age, birthDate.getMonth(), birthDate.getDate());
     } else {
-      const yrM = maturityText.match(/(\d+)\s*년만기/);
+      const yrM = cleanMaturityText.match(/(\d+)\s*년만기/);
       if (yrM && contractDate) {
         const yrs = parseInt(yrM[1], 10);
         maturityDate = new Date(contractDate.getFullYear() + yrs, contractDate.getMonth(), contractDate.getDate());
@@ -1059,7 +1121,13 @@ function getPolicyDateInfo(policy) {
   };
 
   const formatWithDay = (d, raw) => {
-    if (!d || isNaN(d.getTime())) return raw ? formatKoreanDateWithDay(raw) : "-";
+    if (!d || isNaN(d.getTime())) {
+      if (raw) {
+        const parsed = parseDateRobust(raw);
+        if (parsed) return formatWithDay(parsed);
+      }
+      return "-";
+    }
     const days = ["일", "월", "화", "수", "목", "금", "토"];
     const y = d.getFullYear();
     const m = String(d.getMonth() + 1).padStart(2, "0");
@@ -1069,45 +1137,66 @@ function getPolicyDateInfo(policy) {
   };
 
   const startDateStr = formatShort(contractDate);
-  const endDateStr = maturityDate ? formatShort(maturityDate) : (/종신/.test(maturityText) ? "종신" : "");
+  const endDateStr = maturityDate ? formatShort(maturityDate) : (/종신/.test(cleanMaturityText) ? "종신" : "");
 
-  let dateRangeStr = "";
-  if (knownMaturityDesc) {
-    dateRangeStr = startDateStr ? `${startDateStr} ~ ${knownMaturityDesc}` : knownMaturityDesc;
-  } else if (startDateStr && endDateStr) {
-    dateRangeStr = `${startDateStr} ~ ${endDateStr}`;
-  } else if (startDateStr) {
-    dateRangeStr = `${startDateStr} ~`;
-  }
-
-  // Check mixed coverage (e.g. main policy whole life + riders 80세)
-  let mixedMaturity = knownMaturityDesc;
-  if (!mixedMaturity) {
+  // Formatted maturity (2번 사진 형식: "2116-09-20 (100세만기)")
+  let maturityDateFormatted = knownMaturityDesc;
+  if (!maturityDateFormatted) {
     const hasWholeLife = (policy.riders || []).some(r => /종신/.test(r.보장만기 || ""));
     const hasTermAge = (policy.riders || []).find(r => /(\d+)\s*세만기/.test(r.보장만기 || ""));
     if (hasWholeLife && hasTermAge) {
-      mixedMaturity = `${hasTermAge.보장만기} (주보험 종신)`;
+      const riderMat = maturityDate ? formatShort(maturityDate) + " " : "";
+      maturityDateFormatted = `${riderMat}(${hasTermAge.보장만기} / 주보험 종신)`;
+    } else if (maturityDate) {
+      maturityDateFormatted = `${formatShort(maturityDate)} (${cleanMaturityText || "만기"})`;
+    } else if (/종신/.test(cleanMaturityText)) {
+      maturityDateFormatted = "종신 (주보험 종신)";
     } else {
-      mixedMaturity = maturityDate ? `${formatShort(maturityDate)} (${maturityText})` : (maturityText || "-");
+      maturityDateFormatted = cleanMaturityText ? `(${cleanMaturityText})` : "-";
     }
   }
 
-  const fullPeriodDescription = `${policy.paymentPeriod || r0.납입기간 || "납입기간 미지정"} / ${mixedMaturity}`;
+  // Full Period String (1번 사진 공란 해결: "2026-09-11 ~ 2116-09-20 (90년)")
+  let fullPeriodStr = "";
+  if (startDateStr && endDateStr) {
+    if (endDateStr === "종신") {
+      fullPeriodStr = `${startDateStr} ~ 종신`;
+    } else {
+      const startY = contractDate.getFullYear();
+      const endY = maturityDate ? maturityDate.getFullYear() : parseInt(endDateStr.slice(0, 4), 10);
+      const diffY = endY - startY;
+      fullPeriodStr = diffY > 0 ? `${startDateStr} ~ ${endDateStr} (${diffY}년)` : `${startDateStr} ~ ${endDateStr}`;
+    }
+  } else if (startDateStr && /종신/.test(maturityDateFormatted)) {
+    fullPeriodStr = `${startDateStr} ~ 종신`;
+  } else if (startDateStr) {
+    fullPeriodStr = `${startDateStr} ~ ${cleanMaturityText ? cleanMaturityText : "만기"}`;
+  } else if (endDateStr) {
+    fullPeriodStr = `~ ${endDateStr}`;
+  } else {
+    fullPeriodStr = cleanMaturityText || "-";
+  }
+
+  const dateRangeStr = (startDateStr && endDateStr) ? `${startDateStr} ~ ${endDateStr}` : fullPeriodStr;
+  const fullPeriodDescription = `${policy.paymentPeriod || r0.납입기간 || "납입기간 미지정"} / ${maturityDateFormatted}`;
 
   return {
     contractDate,
     birthDate,
     maturityDate,
+    rawContractDate: startDateStr,
+    rawMaturityDate: endDateStr,
+    rawCoveragePeriod: cleanMaturityText,
     contractDateFormatted: formatWithDay(contractDate, explicitStart),
-    birthDateFormatted: formatWithDay(birthDate, r0.생년월일),
-    maturityDateFormatted: mixedMaturity,
+    birthDateFormatted: formatWithDay(birthDate, r0.생년월일 || (famName && FAM_BIRTH_MAP[famName])),
+    maturityDateFormatted,
+    fullPeriodStr,
     dateRangeStr,
     fullPeriodDescription,
     startDateStr,
     endDateStr
   };
 }
-
 
 const PolicyPeriodEditModal = ({ isOpen, onClose, policy, dateInfo, onSave }) => {
   if (!isOpen || !policy) return null;
@@ -1116,7 +1205,7 @@ const PolicyPeriodEditModal = ({ isOpen, onClose, policy, dateInfo, onSave }) =>
   const [maturityDate, setMaturityDate] = Qe.useState((dateInfo && dateInfo.rawMaturityDate) || "");
   const [coveragePeriod, setCoveragePeriod] = Qe.useState((dateInfo && dateInfo.rawCoveragePeriod) || policy.coveragePeriod || "");
 
-  const birthStr = (policy.riders && policy.riders[0] && policy.riders[0].생년월일) || "";
+  const birthStr = (policy.riders && policy.riders[0] && policy.riders[0].생년월일) || (policy.familyName && FAM_BIRTH_MAP[policy.familyName]) || "";
   const birthYearMatch = String(birthStr).match(/^(\d{4})/);
   const birthYear = birthYearMatch ? parseInt(birthYearMatch[1], 10) : null;
 
@@ -1544,7 +1633,7 @@ const PolicyListModal = ({ isOpen, onClose, selectedKey, setSelectedKey, records
                       ]}),
                       u.jsxs("div", { className: "p-2.5 bg-white/90 rounded-xl border border-indigo-100 shadow-2xs col-span-2 sm:col-span-3", children: [
                         u.jsx("span", { className: "text-[10px] font-bold text-slate-400 block mb-0.5", children: "⏱️ 전체 계약기간 (보험기간)" }),
-                        u.jsx("span", { className: "text-xs font-black text-indigo-900", children: selectedDateInfo.fullPeriodStr })
+                        u.jsx("span", { className: "text-xs font-black text-indigo-900", children: selectedDateInfo.fullPeriodStr || selectedDateInfo.dateRangeStr || "-" })
                       ]})
                     ]
                   })
