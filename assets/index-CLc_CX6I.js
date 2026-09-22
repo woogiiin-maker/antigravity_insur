@@ -3479,12 +3479,12 @@ function printStandardGuideHtml() {
     cat.items.forEach((item, idx) => {
       rowsHtml += "<tr>";
       if (idx === 0) {
-        rowsHtml += `<td rowspan="${cat.items.length}" style="background:#f8fafc; font-weight:800; text-align:center; vertical-align:middle; border:1px solid #cbd5e1; font-size:10px; color:#1e293b; padding:3px 4px;">${cat.category}</td>`;
+        rowsHtml += `<td rowspan="${cat.items.length}" style="background:#f8fafc; font-weight:800; text-align:center; vertical-align:middle; border:1px solid #cbd5e1; font-size:9.5px; color:#1e293b; padding:2.5px 4px;">${cat.category}</td>`;
       }
-      const badgeHtml = item.badge ? `<span style="font-size:8.5px; font-weight:bold; margin-left:3px; padding:0.5px 4px; border-radius:3px; border:1px solid #cbd5e1; background:#f1f5f9;">${item.badge}</span>` : "";
-      rowsHtml += `<td style="border:1px solid #cbd5e1; padding:3px 6px; font-weight:700; font-size:9.5px; color:#0f172a;">${item.name} ${badgeHtml}</td>`;
-      rowsHtml += `<td style="border:1px solid #cbd5e1; padding:3px 6px; font-weight:800; font-size:9.5px; color:#0284c7; text-align:center; white-space:nowrap;">${item.amount}</td>`;
-      rowsHtml += `<td style="border:1px solid #cbd5e1; padding:3px 6px; font-size:9px; color:#475569; line-height:1.25;">${item.point}</td>`;
+      const badgeHtml = item.badge ? `<span style="font-size:8px; font-weight:bold; margin-left:3px; padding:0.5px 3.5px; border-radius:3px; border:1px solid #cbd5e1; background:#f1f5f9;">${item.badge}</span>` : "";
+      rowsHtml += `<td style="border:1px solid #cbd5e1; padding:2.5px 5px; font-weight:700; font-size:9px; color:#0f172a;">${item.name} ${badgeHtml}</td>`;
+      rowsHtml += `<td style="border:1px solid #cbd5e1; padding:2.5px 5px; font-weight:800; font-size:9px; color:#0284c7; text-align:center; white-space:nowrap;">${item.amount}</td>`;
+      rowsHtml += `<td style="border:1px solid #cbd5e1; padding:2.5px 5px; font-size:8.5px; color:#475569; line-height:1.2;">${item.point}</td>`;
       rowsHtml += "</tr>";
     });
   });
@@ -3496,18 +3496,18 @@ function printStandardGuideHtml() {
 <meta charset="utf-8">
 <title>보험 핵심 특약 권장 보장금액 요약표</title>
 <style>
-  @page { size: A4 portrait; margin: 6mm 8mm; }
+  @page { size: A4 portrait; margin: 5mm 7mm; }
   * { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; width: 100%; font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Apple SD Gothic Neo", sans-serif; color: #0f172a; background: #fff; font-size: 9.5px; line-height: 1.25; }
-  .guide-header { border-bottom: 1.5px solid #2563eb; padding-bottom: 3px; margin-bottom: 4px; }
-  .guide-tag { font-size: 9px; color: #2563eb; font-weight: 800; letter-spacing: 0.5px; }
-  h1 { font-size: 14px; margin: 1px 0 2px 0; color: #0f172a; font-weight: 900; letter-spacing: -0.3px; }
-  .guide-sub { font-size: 9px; color: #64748b; margin-bottom: 3px; }
-  .guide-meta { display: flex; justify-content: space-between; font-size: 8.5px; color: #334155; font-weight: 600; background: #f8fafc; padding: 2.5px 8px; border-radius: 4px; border: 1px solid #e2e8f0; }
-  table { width: 100%; border-collapse: collapse; margin-top: 4px; }
-  th { background: #f1f5f9; border: 1px solid #cbd5e1; padding: 3.5px 5px; font-size: 9.5px; font-weight: 800; color: #1e293b; text-align: center; }
+  html, body { margin: 0; padding: 0; width: 100%; font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Apple SD Gothic Neo", sans-serif; color: #0f172a; background: #fff; font-size: 9px; line-height: 1.2; }
+  .guide-header { border-bottom: 1.5px solid #2563eb; padding-bottom: 2px; margin-bottom: 3px; }
+  .guide-tag { font-size: 8.5px; color: #2563eb; font-weight: 800; letter-spacing: 0.5px; }
+  h1 { font-size: 13px; margin: 1px 0; color: #0f172a; font-weight: 900; letter-spacing: -0.3px; }
+  .guide-sub { font-size: 8.5px; color: #64748b; margin-bottom: 2px; }
+  .guide-meta { display: flex; justify-content: space-between; font-size: 8px; color: #334155; font-weight: 600; background: #f8fafc; padding: 2px 6px; border-radius: 4px; border: 1px solid #e2e8f0; }
+  table { width: 100%; border-collapse: collapse; margin-top: 3px; }
+  th { background: #f1f5f9; border: 1px solid #cbd5e1; padding: 2.5px 4px; font-size: 9px; font-weight: 800; color: #1e293b; text-align: center; }
   tr { page-break-inside: avoid; }
-  .guide-footer { margin-top: 4px; display: flex; justify-content: space-between; font-size: 8px; color: #94a3b8; font-weight: 500; border-top: 1px solid #e2e8f0; padding-top: 2px; }
+  .guide-footer { margin-top: 3px; display: flex; justify-content: space-between; font-size: 7.5px; color: #94a3b8; font-weight: 500; border-top: 1px solid #e2e8f0; padding-top: 2px; }
 </style>
 </head>
 <body>
@@ -3553,35 +3553,34 @@ const StandardGuideModal = ({ isOpen, onClose, onOpenCoreCoverage }) => {
     : GUIDE_STANDARDS.filter(c => c.category === selectedCategory);
 
   return u.jsx("div", {
-    className: "fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-xs flex items-center justify-center p-2 sm:p-4 animate-in fade-in duration-200",
+    className: "fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-xs flex flex-col items-center justify-start sm:justify-center p-2 sm:p-4 overflow-y-auto",
     onClick: onClose,
     children: u.jsxs("div", {
-      className: "bg-white w-full h-[94dvh] sm:h-[90vh] sm:max-w-5xl rounded-2xl sm:rounded-3xl shadow-2xl flex flex-col min-h-0 overflow-hidden border border-slate-200 animate-in slide-in-from-bottom duration-250",
+      className: "bg-white w-full max-w-5xl rounded-2xl sm:rounded-3xl shadow-2xl flex flex-col overflow-hidden border border-slate-200 max-h-[96vh] sm:max-h-[94vh] animate-in fade-in zoom-in-95 duration-150 my-auto",
       onClick: e => e.stopPropagation(),
       children: [
-        /* 헤더 영역 */
+        /* 1. 슬림 헤더 */
         u.jsxs("div", {
-          className: "bg-gradient-to-r from-blue-700 via-indigo-600 to-blue-600 text-white p-3 sm:p-4 shrink-0 shadow-md",
+          className: "bg-gradient-to-r from-blue-700 via-indigo-600 to-blue-600 text-white p-2.5 sm:p-3 px-3 sm:px-4 shrink-0 shadow-xs",
           children: [
             u.jsxs("div", {
               className: "flex justify-between items-center gap-2",
               children: [
                 u.jsxs("div", {
-                  className: "min-w-0 flex-1",
+                  className: "min-w-0 flex-1 flex items-center space-x-2",
                   children: [
-                    u.jsx("span", { className: "text-[10px] sm:text-xs font-bold text-blue-200 tracking-wider uppercase block", children: "설계 표준 가이드" }),
-                    u.jsx("h2", { className: "text-sm sm:text-lg font-black tracking-tight text-white mt-0.5 truncate", children: "보험 핵심 특약 권장 보장금액 요약표" }),
-                    u.jsx("p", { className: "text-[10.5px] sm:text-xs text-blue-100 mt-0.5 font-medium hidden sm:block", children: "업계 손해율·가성비 및 최신 치료 환경을 반영한 최적 보장금액 가이드" })
+                    u.jsx("span", { className: "px-2 py-0.5 rounded bg-white/20 text-[10px] font-extrabold text-blue-100 uppercase tracking-wider shrink-0", children: "권장 가이드" }),
+                    u.jsx("h2", { className: "text-xs sm:text-base font-black tracking-tight text-white truncate", children: "보험 핵심 특약 권장 보장금액 요약표" })
                   ]
                 }),
                 u.jsxs("div", {
-                  className: "flex items-center space-x-1.5 sm:space-x-2 shrink-0",
+                  className: "flex items-center space-x-1.5 shrink-0",
                   children: [
                     u.jsxs("button", {
                       type: "button",
                       onClick: printStandardGuideHtml,
                       title: "A4 1장에 완벽 인쇄 또는 PDF 저장",
-                      className: "px-2 sm:px-2.5 py-1.5 text-[11px] sm:text-xs font-bold bg-white/20 hover:bg-white/30 rounded-xl text-white transition flex items-center space-x-1 cursor-pointer active:scale-95",
+                      className: "px-2 py-1 text-[11px] font-bold bg-white/20 hover:bg-white/30 rounded-lg text-white transition flex items-center space-x-1 cursor-pointer active:scale-95",
                       children: [
                         u.jsx("span", { children: "🖨️ 인쇄/PDF (1장)" })
                       ]
@@ -3590,7 +3589,7 @@ const StandardGuideModal = ({ isOpen, onClose, onOpenCoreCoverage }) => {
                       type: "button",
                       onClick: onOpenCoreCoverage,
                       title: "우리가족 10대 핵심보장 비교표로 전환",
-                      className: "px-2 sm:px-2.5 py-1.5 text-[11px] sm:text-xs font-bold bg-white text-blue-700 hover:bg-blue-50 rounded-xl transition flex items-center space-x-1 cursor-pointer shadow-xs active:scale-95",
+                      className: "px-2 py-1 text-[11px] font-bold bg-white text-blue-700 hover:bg-blue-50 rounded-lg transition flex items-center space-x-1 cursor-pointer shadow-xs active:scale-95",
                       children: [
                         u.jsx("span", { children: "가족 현황 비교" })
                       ]
@@ -3599,87 +3598,87 @@ const StandardGuideModal = ({ isOpen, onClose, onOpenCoreCoverage }) => {
                       type: "button",
                       onClick: onClose,
                       title: "닫기",
-                      className: "w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/20 hover:bg-white/30 text-white transition flex items-center justify-center cursor-pointer",
-                      children: u.jsx("span", { className: "text-base font-bold", children: "✕" })
+                      className: "w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-white/20 hover:bg-white/30 text-white transition flex items-center justify-center cursor-pointer ml-0.5",
+                      children: u.jsx("span", { className: "text-sm font-bold", children: "✕" })
                     })
                   ]
                 })
               ]
             }),
             u.jsxs("div", {
-              className: "mt-2 pt-2 border-t border-white/20 flex flex-wrap items-center justify-between text-[10px] sm:text-xs text-blue-100 font-medium gap-1.5",
+              className: "mt-1.5 pt-1.5 border-t border-white/15 flex flex-wrap items-center justify-between text-[10px] text-blue-100 font-medium gap-1",
               children: [
-                u.jsx("span", { children: "📋 분류: 종합보험 필수 핵심 담보" }),
-                u.jsx("span", { children: "🎯 기준: 실손의료비 연계 표준안" })
+                u.jsx("span", { children: "📋 분류: 종합보험 필수 핵심 담보 (실손 연계 표준안)" }),
+                u.jsx("span", { className: "hidden sm:inline", children: "💡 각 카테고리 탭을 클릭하여 원하는 보장만 빠르게 확인하세요" })
               ]
             })
           ]
         }),
 
-        /* 카테고리 필터 탭 바 */
+        /* 2. 슬림 카테고리 탭 바 */
         u.jsx("div", {
-          className: "bg-slate-50 border-b border-slate-200 px-3 sm:px-5 py-2 overflow-x-auto flex space-x-1.5 no-scrollbar shrink-0",
+          className: "bg-slate-50 border-b border-slate-200 px-2 sm:px-4 py-1.5 overflow-x-auto flex space-x-1 no-scrollbar shrink-0",
           children: categories.map(cat => u.jsx("button", {
             key: cat,
             type: "button",
             onClick: () => setSelectedCategory(cat),
-            className: `px-2.5 sm:px-3 py-1 rounded-full text-[11px] sm:text-xs font-bold whitespace-nowrap transition cursor-pointer ${
+            className: `px-2.5 py-1 rounded-full text-[11px] font-bold whitespace-nowrap transition cursor-pointer ${
               selectedCategory === cat ? "bg-blue-600 text-white shadow-xs" : "bg-white text-slate-600 hover:bg-slate-200/80 border border-slate-200"
             }`,
-            children: cat === "ALL" ? "전체 보기 (18개 특약)" : cat
+            children: cat === "ALL" ? "전체 (18개 특약)" : cat
           }))
         }),
 
-        /* 본문 스크롤 영역: flex-1 min-h-0 overflow-y-auto 로 어떤 해상도에서도 완벽 스크롤 */
+        /* 3. 본문 스크롤 영역 (flex-1 min-h-0 overflow-y-auto overscroll-contain) */
         u.jsxs("div", {
-          className: "flex-1 min-h-0 overflow-y-auto p-2.5 sm:p-5 overscroll-contain bg-slate-50/50",
+          className: "flex-1 min-h-0 overflow-y-auto p-2 sm:p-3 overscroll-contain bg-slate-50/40",
           style: { WebkitOverflowScrolling: "touch" },
           children: [
-            /* 1. PC 및 태블릿용 와이드 테이블 뷰 (sm 이상) */
+            /* PC 및 태블릿용 컴팩트 테이블 뷰 (sm 이상: 18개 특약이 스크롤 없이도 한눈에 시원하게 보임) */
             u.jsx("div", {
-              className: "hidden sm:block bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-2xs",
+              className: "hidden sm:block bg-white border border-slate-200 rounded-xl overflow-hidden shadow-2xs",
               children: u.jsxs("table", {
                 className: "w-full border-collapse text-left",
                 children: [
                   u.jsx("thead", {
-                    className: "bg-slate-100 text-slate-700 text-xs font-extrabold uppercase border-b border-slate-200 select-none sticky top-0 z-10 shadow-2xs",
+                    className: "bg-slate-100 text-slate-700 text-[11px] font-extrabold uppercase border-b border-slate-200 select-none sticky top-0 z-10 shadow-2xs",
                     children: u.jsxs("tr", {
                       children: [
-                        u.jsx("th", { className: "p-2.5 text-center w-[14%]", children: "카테고리" }),
-                        u.jsx("th", { className: "p-2.5 w-[26%]", children: "특약명" }),
-                        u.jsx("th", { className: "p-2.5 text-center w-[27%]", children: "권장 보장금액" }),
-                        u.jsx("th", { className: "p-2.5 w-[33%]", children: "핵심 설계 포인트" })
+                        u.jsx("th", { className: "py-1.5 px-2 text-center w-[13%]", children: "카테고리" }),
+                        u.jsx("th", { className: "py-1.5 px-2.5 w-[27%]", children: "특약명" }),
+                        u.jsx("th", { className: "py-1.5 px-2 text-center w-[27%]", children: "권장 보장금액" }),
+                        u.jsx("th", { className: "py-1.5 px-2.5 w-[33%]", children: "핵심 설계 포인트" })
                       ]
                     })
                   }),
                   u.jsx("tbody", {
-                    className: "divide-y divide-slate-200 text-xs",
+                    className: "divide-y divide-slate-100 text-[11.5px]",
                     children: filteredData.map(cat => 
                       cat.items.map((item, idx) => u.jsxs("tr", {
                         key: item.name,
-                        className: "hover:bg-blue-50/40 transition-colors",
+                        className: "hover:bg-blue-50/30 transition-colors",
                         children: [
                           idx === 0 ? u.jsx("td", {
                             rowSpan: cat.items.length,
-                            className: "p-2.5 font-black text-slate-800 bg-slate-50/80 border-r border-slate-200 text-center text-xs align-middle",
+                            className: "py-1.5 px-2 font-black text-slate-800 bg-slate-50/90 border-r border-slate-200 text-center text-[11px] align-middle",
                             children: cat.category
                           }) : null,
                           u.jsxs("td", {
-                            className: "p-2.5 font-bold text-slate-900",
+                            className: "py-1.5 px-2.5 font-bold text-slate-900",
                             children: [
                               u.jsx("span", { children: item.name }),
                               item.badge && u.jsx("span", {
-                                className: `ml-1.5 px-1.5 py-0.2 rounded text-[10px] font-bold border ${item.badgeClass}`,
+                                className: `ml-1 px-1 py-0.2 rounded text-[9px] font-extrabold border ${item.badgeClass}`,
                                 children: item.badge
                               })
                             ]
                           }),
                           u.jsx("td", {
-                            className: "p-2.5 text-center font-extrabold text-blue-700 text-xs whitespace-nowrap tabular-nums",
+                            className: "py-1.5 px-2 text-center font-black text-blue-700 text-[11.5px] whitespace-nowrap tabular-nums",
                             children: item.amount
                           }),
                           u.jsx("td", {
-                            className: "p-2.5 text-slate-600 text-[11.5px] leading-relaxed",
+                            className: "py-1.5 px-2.5 text-slate-600 text-[11px] leading-tight",
                             children: item.point
                           })
                         ]
@@ -3690,57 +3689,51 @@ const StandardGuideModal = ({ isOpen, onClose, onOpenCoreCoverage }) => {
               })
             }),
 
-            /* 2. 모바일 전용 반응형 카드 뷰 (sm 미만) */
+            /* 모바일 전용 반응형 카드 뷰 (sm 미만: 컬럼 찌그러짐 없이 한눈에 보기 편함) */
             u.jsx("div", {
-              className: "block sm:hidden space-y-3",
+              className: "block sm:hidden space-y-2",
               children: filteredData.map(cat => u.jsxs("div", {
                 key: cat.category,
                 className: "bg-white border border-slate-200 rounded-xl overflow-hidden shadow-2xs",
                 children: [
-                  /* 모바일 카테고리 헤더 */
+                  /* 카테고리 헤더 */
                   u.jsxs("div", {
-                    className: "bg-slate-100/90 px-3 py-1.5 border-b border-slate-200 flex items-center justify-between",
+                    className: "bg-slate-100/90 px-2.5 py-1 border-b border-slate-200 flex items-center justify-between",
                     children: [
-                      u.jsx("span", { className: "text-xs font-black text-slate-800", children: cat.category }),
-                      u.jsxs("span", { className: "text-[10px] text-slate-500 font-semibold", children: [cat.items.length, "개 특약"] })
+                      u.jsx("span", { className: "text-[11px] font-black text-slate-800", children: cat.category }),
+                      u.jsxs("span", { className: "text-[9.5px] text-slate-500 font-semibold", children: [cat.items.length, "개"] })
                     ]
                   }),
-                  /* 모바일 특약 카드 목록 */
+                  /* 특약 카드 목록 */
                   u.jsx("div", {
                     className: "divide-y divide-slate-100",
                     children: cat.items.map(item => u.jsxs("div", {
                       key: item.name,
-                      className: "p-2.5 hover:bg-slate-50 transition-colors",
+                      className: "p-2 hover:bg-slate-50 transition-colors",
                       children: [
                         u.jsxs("div", {
-                          className: "flex items-start justify-between gap-1.5",
+                          className: "flex items-center justify-between gap-1",
                           children: [
                             u.jsxs("div", {
-                              className: "flex-1 min-w-0",
+                              className: "flex items-center space-x-1 min-w-0 flex-1",
                               children: [
-                                u.jsx("div", {
-                                  className: "text-xs font-bold text-slate-900 leading-tight",
-                                  children: item.name
-                                }),
+                                u.jsx("span", { className: "text-[11.5px] font-bold text-slate-900 truncate", children: item.name }),
                                 item.badge && u.jsx("span", {
-                                  className: `inline-block mt-1 px-1.5 py-0.2 rounded text-[9.5px] font-bold border ${item.badgeClass}`,
+                                  className: `px-1 py-0.2 rounded text-[8.5px] font-black border shrink-0 ${item.badgeClass}`,
                                   children: item.badge
                                 })
                               ]
                             }),
-                            u.jsx("div", {
-                              className: "text-right shrink-0",
-                              children: u.jsx("span", {
-                                className: "text-xs font-black text-blue-700 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-md inline-block",
-                                children: item.amount
-                              })
+                            u.jsx("span", {
+                              className: "text-[11.5px] font-black text-blue-700 bg-blue-50 border border-blue-200 px-1.5 py-0.5 rounded shrink-0",
+                              children: item.amount
                             })
                           ]
                         }),
                         u.jsxs("div", {
-                          className: "mt-1.5 text-[10.5px] text-slate-600 bg-slate-50 border border-slate-100 rounded-lg p-1.5 leading-relaxed",
+                          className: "mt-1 text-[10px] text-slate-600 bg-slate-50 rounded p-1 leading-tight",
                           children: [
-                            u.jsx("span", { className: "font-bold text-slate-500 mr-1", children: "💡 포인트:" }),
+                            u.jsx("span", { className: "font-bold text-slate-500 mr-1", children: "💡" }),
                             item.point
                           ]
                         })
@@ -3753,15 +3746,15 @@ const StandardGuideModal = ({ isOpen, onClose, onOpenCoreCoverage }) => {
           ]
         }),
 
-        /* 하단 푸터 */
+        /* 4. 하단 푸터 */
         u.jsxs("div", {
-          className: "bg-slate-50 border-t border-slate-200 p-2.5 sm:p-3 px-3 sm:px-6 flex items-center justify-between text-[11px] sm:text-xs text-slate-500 shrink-0",
+          className: "bg-slate-50 border-t border-slate-200 p-2 sm:p-2.5 px-3 sm:px-4 flex items-center justify-between text-[10.5px] sm:text-[11px] text-slate-500 shrink-0",
           children: [
-            u.jsx("span", { className: "font-medium truncate mr-2", children: "※ 실손의료비와 중복되지 않는 가성비 중심 권장안입니다." }),
+            u.jsx("span", { className: "font-medium truncate mr-2", children: "※ 실손의료비와 중복되지 않는 업계 가성비 표준 권장안입니다." }),
             u.jsx("button", {
               type: "button",
               onClick: onClose,
-              className: "px-3.5 sm:px-4 py-1.5 rounded-xl text-xs font-bold text-slate-700 bg-white border border-slate-300 hover:bg-slate-100 transition shadow-2xs cursor-pointer shrink-0 active:scale-95",
+              className: "px-3 py-1 rounded-lg text-xs font-bold text-slate-700 bg-white border border-slate-300 hover:bg-slate-100 transition shadow-2xs cursor-pointer shrink-0 active:scale-95",
               children: "닫기"
             })
           ]
