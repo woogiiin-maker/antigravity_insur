@@ -3694,46 +3694,46 @@ const StandardGuideModal = ({ isOpen, onClose, onOpenCoreCoverage }) => {
               className: "block sm:hidden space-y-2",
               children: filteredData.map(cat => u.jsxs("div", {
                 key: cat.category,
-                className: "bg-white border border-slate-200 rounded-xl overflow-hidden shadow-2xs",
+                className: "bg-white border border-slate-200/90 rounded-xl overflow-hidden shadow-2xs",
                 children: [
                   /* 카테고리 헤더 */
                   u.jsxs("div", {
-                    className: "bg-slate-100/90 px-2.5 py-1 border-b border-slate-200 flex items-center justify-between",
+                    className: "bg-slate-100/80 px-2.5 py-1 border-b border-slate-200/70 flex items-center justify-between",
                     children: [
-                      u.jsx("span", { className: "text-[11px] font-black text-slate-800", children: cat.category }),
-                      u.jsxs("span", { className: "text-[9.5px] text-slate-500 font-semibold", children: [cat.items.length, "개"] })
+                      u.jsx("span", { className: "text-[10px] font-extrabold text-slate-700 tracking-tight", children: cat.category }),
+                      u.jsxs("span", { className: "text-[8.5px] text-slate-500 font-bold bg-white/80 border border-slate-200/60 px-1.5 py-0.2 rounded-full", children: [cat.items.length, "개 특약"] })
                     ]
                   }),
                   /* 특약 카드 목록 */
                   u.jsx("div", {
-                    className: "divide-y divide-slate-100",
+                    className: "divide-y divide-slate-100/90",
                     children: cat.items.map(item => u.jsxs("div", {
                       key: item.name,
-                      className: "p-2 hover:bg-slate-50 transition-colors",
+                      className: "p-2 hover:bg-blue-50/20 transition-colors",
                       children: [
                         u.jsxs("div", {
-                          className: "flex items-center justify-between gap-1",
+                          className: "flex items-center justify-between gap-1.5",
                           children: [
                             u.jsxs("div", {
                               className: "flex items-center space-x-1 min-w-0 flex-1",
                               children: [
-                                u.jsx("span", { className: "text-[11.5px] font-bold text-slate-900 truncate", children: item.name }),
+                                u.jsx("span", { className: "text-[10.5px] font-bold text-slate-800 truncate tracking-tight", children: item.name }),
                                 item.badge && u.jsx("span", {
-                                  className: `px-1 py-0.2 rounded text-[8.5px] font-black border shrink-0 ${item.badgeClass}`,
+                                  className: `px-1 py-0.2 rounded-full text-[8px] font-extrabold border shrink-0 ${item.badgeClass}`,
                                   children: item.badge
                                 })
                               ]
                             }),
                             u.jsx("span", {
-                              className: "text-[11.5px] font-black text-blue-700 bg-blue-50 border border-blue-200 px-1.5 py-0.5 rounded shrink-0",
+                              className: "text-[10px] font-black text-blue-600 bg-blue-50/90 border border-blue-200/80 px-1.5 py-0.5 rounded-md shrink-0 tabular-nums shadow-2xs",
                               children: item.amount
                             })
                           ]
                         }),
                         u.jsxs("div", {
-                          className: "mt-1 text-[10px] text-slate-600 bg-slate-50 rounded p-1 leading-tight",
+                          className: "mt-1 text-[9px] text-slate-500 bg-slate-50/80 border border-slate-100 rounded-md px-1.5 py-0.8 leading-snug",
                           children: [
-                            u.jsx("span", { className: "font-bold text-slate-500 mr-1", children: "💡" }),
+                            u.jsx("span", { className: "font-bold text-slate-400 mr-1", children: "💡" }),
                             item.point
                           ]
                         })
