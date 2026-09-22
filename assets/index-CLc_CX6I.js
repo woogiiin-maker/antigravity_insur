@@ -3479,12 +3479,12 @@ function printStandardGuideHtml() {
     cat.items.forEach((item, idx) => {
       rowsHtml += "<tr>";
       if (idx === 0) {
-        rowsHtml += `<td rowspan="${cat.items.length}" style="background:#f8fafc; font-weight:bold; text-align:center; vertical-align:middle; border:1px solid #cbd5e1; font-size:12px; color:#1e293b;">${cat.category}</td>`;
+        rowsHtml += `<td rowspan="${cat.items.length}" style="background:#f8fafc; font-weight:800; text-align:center; vertical-align:middle; border:1px solid #cbd5e1; font-size:10px; color:#1e293b; padding:3px 4px;">${cat.category}</td>`;
       }
-      const badgeHtml = item.badge ? `<span style="font-size:10px; font-weight:bold; margin-left:4px; padding:1px 5px; border-radius:3px; border:1px solid #cbd5e1; background:#f1f5f9;">${item.badge}</span>` : "";
-      rowsHtml += `<td style="border:1px solid #cbd5e1; padding:7px 10px; font-weight:600; font-size:12px; color:#0f172a;">${item.name} ${badgeHtml}</td>`;
-      rowsHtml += `<td style="border:1px solid #cbd5e1; padding:7px 10px; font-weight:bold; font-size:12px; color:#0284c7; text-align:center; white-space:nowrap;">${item.amount}</td>`;
-      rowsHtml += `<td style="border:1px solid #cbd5e1; padding:7px 10px; font-size:11px; color:#475569; line-height:1.4;">${item.point}</td>`;
+      const badgeHtml = item.badge ? `<span style="font-size:8.5px; font-weight:bold; margin-left:3px; padding:0.5px 4px; border-radius:3px; border:1px solid #cbd5e1; background:#f1f5f9;">${item.badge}</span>` : "";
+      rowsHtml += `<td style="border:1px solid #cbd5e1; padding:3px 6px; font-weight:700; font-size:9.5px; color:#0f172a;">${item.name} ${badgeHtml}</td>`;
+      rowsHtml += `<td style="border:1px solid #cbd5e1; padding:3px 6px; font-weight:800; font-size:9.5px; color:#0284c7; text-align:center; white-space:nowrap;">${item.amount}</td>`;
+      rowsHtml += `<td style="border:1px solid #cbd5e1; padding:3px 6px; font-size:9px; color:#475569; line-height:1.25;">${item.point}</td>`;
       rowsHtml += "</tr>";
     });
   });
@@ -3496,16 +3496,18 @@ function printStandardGuideHtml() {
 <meta charset="utf-8">
 <title>보험 핵심 특약 권장 보장금액 요약표</title>
 <style>
-  @page { size: A4 portrait; margin: 12mm 14mm; }
-  body { font-family: -apple-system, BlinkMacSystemFont, "Pretendard", sans-serif; color: #1e293b; margin: 0; padding: 10px; }
-  .guide-header { border-bottom: 2px solid #2563eb; padding-bottom: 8px; margin-bottom: 12px; }
-  .guide-tag { font-size: 11px; color: #2563eb; font-weight: 800; letter-spacing: 0.5px; }
-  h1 { font-size: 20px; margin: 4px 0 3px 0; color: #0f172a; font-weight: 900; }
-  .guide-sub { font-size: 11px; color: #64748b; margin-bottom: 8px; }
-  .guide-meta { display: flex; justify-content: space-between; font-size: 10.5px; color: #334155; font-weight: 600; background: #f8fafc; padding: 5px 10px; border-radius: 6px; border: 1px solid #e2e8f0; }
-  table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-  th { background: #f1f5f9; border: 1px solid #cbd5e1; padding: 8px 10px; font-size: 11.5px; font-weight: 800; color: #1e293b; text-align: center; }
-  .guide-footer { margin-top: 14px; display: flex; justify-content: space-between; font-size: 10px; color: #94a3b8; font-weight: 500; border-top: 1px solid #e2e8f0; padding-top: 8px; }
+  @page { size: A4 portrait; margin: 6mm 8mm; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; width: 100%; font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Apple SD Gothic Neo", sans-serif; color: #0f172a; background: #fff; font-size: 9.5px; line-height: 1.25; }
+  .guide-header { border-bottom: 1.5px solid #2563eb; padding-bottom: 3px; margin-bottom: 4px; }
+  .guide-tag { font-size: 9px; color: #2563eb; font-weight: 800; letter-spacing: 0.5px; }
+  h1 { font-size: 14px; margin: 1px 0 2px 0; color: #0f172a; font-weight: 900; letter-spacing: -0.3px; }
+  .guide-sub { font-size: 9px; color: #64748b; margin-bottom: 3px; }
+  .guide-meta { display: flex; justify-content: space-between; font-size: 8.5px; color: #334155; font-weight: 600; background: #f8fafc; padding: 2.5px 8px; border-radius: 4px; border: 1px solid #e2e8f0; }
+  table { width: 100%; border-collapse: collapse; margin-top: 4px; }
+  th { background: #f1f5f9; border: 1px solid #cbd5e1; padding: 3.5px 5px; font-size: 9.5px; font-weight: 800; color: #1e293b; text-align: center; }
+  tr { page-break-inside: avoid; }
+  .guide-footer { margin-top: 4px; display: flex; justify-content: space-between; font-size: 8px; color: #94a3b8; font-weight: 500; border-top: 1px solid #e2e8f0; padding-top: 2px; }
 </style>
 </head>
 <body>
@@ -3521,8 +3523,8 @@ function printStandardGuideHtml() {
   <table>
     <thead>
       <tr>
-        <th style="width: 14%;">카테고리</th>
-        <th style="width: 26%;">특약명</th>
+        <th style="width: 13%;">카테고리</th>
+        <th style="width: 27%;">특약명</th>
         <th style="width: 28%;">권장 보장금액</th>
         <th style="width: 32%;">핵심 설계 포인트</th>
       </tr>
@@ -3532,8 +3534,8 @@ function printStandardGuideHtml() {
     </tbody>
   </table>
   <div class="guide-footer">
-    <span>보험 핵심 특약 권장 보장금액 요약표</span>
-    <span>A4 단일 페이지 인쇄/보관용</span>
+    <span>보험 핵심 특약 권장 보장금액 요약표 (업계 손해율 및 최신 치료환경 반영)</span>
+    <span>A4 단일 페이지 인쇄/보관용 (1장 완결)</span>
   </div>
 </body>
 </html>`);
@@ -3551,23 +3553,25 @@ const StandardGuideModal = ({ isOpen, onClose, onOpenCoreCoverage }) => {
     : GUIDE_STANDARDS.filter(c => c.category === selectedCategory);
 
   return u.jsx("div", {
-    className: "fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-xs flex items-center justify-center p-0 sm:p-4 animate-in fade-in duration-200",
+    className: "fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-xs flex items-center justify-center p-2 sm:p-4 animate-in fade-in duration-200",
     onClick: onClose,
     children: u.jsxs("div", {
-      className: "bg-white w-full h-[96dvh] sm:h-auto sm:max-h-[92vh] sm:max-w-4xl mx-auto rounded-t-[28px] sm:rounded-3xl shadow-2xl flex flex-col overflow-hidden border border-slate-200 animate-in slide-in-from-bottom duration-250",
+      className: "bg-white w-full h-[94dvh] sm:h-[90vh] sm:max-w-5xl rounded-2xl sm:rounded-3xl shadow-2xl flex flex-col min-h-0 overflow-hidden border border-slate-200 animate-in slide-in-from-bottom duration-250",
       onClick: e => e.stopPropagation(),
       children: [
+        /* 헤더 영역 */
         u.jsxs("div", {
-          className: "bg-gradient-to-r from-blue-700 via-indigo-600 to-blue-600 text-white p-4 sm:p-5 shrink-0 shadow-md",
+          className: "bg-gradient-to-r from-blue-700 via-indigo-600 to-blue-600 text-white p-3 sm:p-4 shrink-0 shadow-md",
           children: [
             u.jsxs("div", {
-              className: "flex justify-between items-center",
+              className: "flex justify-between items-center gap-2",
               children: [
                 u.jsxs("div", {
+                  className: "min-w-0 flex-1",
                   children: [
-                    u.jsx("span", { className: "text-[10px] sm:text-xs font-bold text-blue-200 tracking-wider uppercase", children: "설계 표준 가이드" }),
-                    u.jsx("h2", { className: "text-base sm:text-xl font-black tracking-tight text-white mt-0.5", children: "보험 핵심 특약 권장 보장금액 요약표" }),
-                    u.jsx("p", { className: "text-[11px] sm:text-xs text-blue-100 mt-1 font-medium hidden sm:block", children: "업계 손해율·가성비 및 최신 치료 환경을 반영한 최적 보장금액 가이드" })
+                    u.jsx("span", { className: "text-[10px] sm:text-xs font-bold text-blue-200 tracking-wider uppercase block", children: "설계 표준 가이드" }),
+                    u.jsx("h2", { className: "text-sm sm:text-lg font-black tracking-tight text-white mt-0.5 truncate", children: "보험 핵심 특약 권장 보장금액 요약표" }),
+                    u.jsx("p", { className: "text-[10.5px] sm:text-xs text-blue-100 mt-0.5 font-medium hidden sm:block", children: "업계 손해율·가성비 및 최신 치료 환경을 반영한 최적 보장금액 가이드" })
                   ]
                 }),
                 u.jsxs("div", {
@@ -3576,17 +3580,17 @@ const StandardGuideModal = ({ isOpen, onClose, onOpenCoreCoverage }) => {
                     u.jsxs("button", {
                       type: "button",
                       onClick: printStandardGuideHtml,
-                      title: "A4 단일 페이지 인쇄 또는 PDF 저장",
-                      className: "px-2.5 py-1.5 text-xs font-bold bg-white/20 hover:bg-white/30 rounded-xl text-white transition flex items-center space-x-1 cursor-pointer active:scale-95",
+                      title: "A4 1장에 완벽 인쇄 또는 PDF 저장",
+                      className: "px-2 sm:px-2.5 py-1.5 text-[11px] sm:text-xs font-bold bg-white/20 hover:bg-white/30 rounded-xl text-white transition flex items-center space-x-1 cursor-pointer active:scale-95",
                       children: [
-                        u.jsx("span", { children: "🖨️ 인쇄/PDF" })
+                        u.jsx("span", { children: "🖨️ 인쇄/PDF (1장)" })
                       ]
                     }),
                     onOpenCoreCoverage && u.jsxs("button", {
                       type: "button",
                       onClick: onOpenCoreCoverage,
                       title: "우리가족 10대 핵심보장 비교표로 전환",
-                      className: "px-2.5 py-1.5 text-xs font-bold bg-white text-blue-700 hover:bg-blue-50 rounded-xl transition flex items-center space-x-1 cursor-pointer shadow-xs active:scale-95",
+                      className: "px-2 sm:px-2.5 py-1.5 text-[11px] sm:text-xs font-bold bg-white text-blue-700 hover:bg-blue-50 rounded-xl transition flex items-center space-x-1 cursor-pointer shadow-xs active:scale-95",
                       children: [
                         u.jsx("span", { children: "가족 현황 비교" })
                       ]
@@ -3595,7 +3599,7 @@ const StandardGuideModal = ({ isOpen, onClose, onOpenCoreCoverage }) => {
                       type: "button",
                       onClick: onClose,
                       title: "닫기",
-                      className: "w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 text-white transition flex items-center justify-center ml-1 cursor-pointer",
+                      className: "w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/20 hover:bg-white/30 text-white transition flex items-center justify-center cursor-pointer",
                       children: u.jsx("span", { className: "text-base font-bold", children: "✕" })
                     })
                   ]
@@ -3603,7 +3607,7 @@ const StandardGuideModal = ({ isOpen, onClose, onOpenCoreCoverage }) => {
               ]
             }),
             u.jsxs("div", {
-              className: "mt-3 pt-2.5 border-t border-white/20 flex flex-wrap items-center justify-between text-[10.5px] sm:text-xs text-blue-100 font-medium gap-2",
+              className: "mt-2 pt-2 border-t border-white/20 flex flex-wrap items-center justify-between text-[10px] sm:text-xs text-blue-100 font-medium gap-1.5",
               children: [
                 u.jsx("span", { children: "📋 분류: 종합보험 필수 핵심 담보" }),
                 u.jsx("span", { children: "🎯 기준: 실손의료비 연계 표준안" })
@@ -3611,82 +3615,153 @@ const StandardGuideModal = ({ isOpen, onClose, onOpenCoreCoverage }) => {
             })
           ]
         }),
+
+        /* 카테고리 필터 탭 바 */
         u.jsx("div", {
           className: "bg-slate-50 border-b border-slate-200 px-3 sm:px-5 py-2 overflow-x-auto flex space-x-1.5 no-scrollbar shrink-0",
           children: categories.map(cat => u.jsx("button", {
             key: cat,
             type: "button",
             onClick: () => setSelectedCategory(cat),
-            className: `px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap transition cursor-pointer ${
+            className: `px-2.5 sm:px-3 py-1 rounded-full text-[11px] sm:text-xs font-bold whitespace-nowrap transition cursor-pointer ${
               selectedCategory === cat ? "bg-blue-600 text-white shadow-xs" : "bg-white text-slate-600 hover:bg-slate-200/80 border border-slate-200"
             }`,
             children: cat === "ALL" ? "전체 보기 (18개 특약)" : cat
           }))
         }),
-        u.jsx("div", {
-          className: "p-3 sm:p-5 overflow-y-auto flex-1",
-          children: u.jsx("div", {
-            className: "bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-2xs",
-            children: u.jsxs("table", {
-              className: "w-full border-collapse text-left",
-              children: [
-                u.jsx("thead", {
-                  className: "bg-slate-100 text-slate-700 text-xs font-extrabold uppercase border-b border-slate-200 select-none",
-                  children: u.jsxs("tr", {
-                    children: [
-                      u.jsx("th", { className: "p-2.5 sm:p-3 text-center w-[16%] sm:w-[15%]", children: "카테고리" }),
-                      u.jsx("th", { className: "p-2.5 sm:p-3 w-[30%] sm:w-[25%]", children: "특약명" }),
-                      u.jsx("th", { className: "p-2.5 sm:p-3 text-center w-[28%] sm:w-[26%]", children: "권장 보장금액" }),
-                      u.jsx("th", { className: "p-2.5 sm:p-3 w-[26%] sm:w-[34%]", children: "핵심 설계 포인트" })
-                    ]
-                  })
-                }),
-                u.jsx("tbody", {
-                  className: "divide-y divide-slate-200 text-xs",
-                  children: filteredData.map(cat => 
-                    cat.items.map((item, idx) => u.jsxs("tr", {
-                      key: item.name,
-                      className: "hover:bg-blue-50/40 transition-colors",
+
+        /* 본문 스크롤 영역: flex-1 min-h-0 overflow-y-auto 로 어떤 해상도에서도 완벽 스크롤 */
+        u.jsxs("div", {
+          className: "flex-1 min-h-0 overflow-y-auto p-2.5 sm:p-5 overscroll-contain bg-slate-50/50",
+          style: { WebkitOverflowScrolling: "touch" },
+          children: [
+            /* 1. PC 및 태블릿용 와이드 테이블 뷰 (sm 이상) */
+            u.jsx("div", {
+              className: "hidden sm:block bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-2xs",
+              children: u.jsxs("table", {
+                className: "w-full border-collapse text-left",
+                children: [
+                  u.jsx("thead", {
+                    className: "bg-slate-100 text-slate-700 text-xs font-extrabold uppercase border-b border-slate-200 select-none sticky top-0 z-10 shadow-2xs",
+                    children: u.jsxs("tr", {
                       children: [
-                        idx === 0 ? u.jsx("td", {
-                          rowSpan: cat.items.length,
-                          className: "p-2.5 sm:p-3.5 font-black text-slate-800 bg-slate-50/70 border-r border-slate-200 text-center text-xs sm:text-sm align-middle",
-                          children: cat.category
-                        }) : null,
-                        u.jsxs("td", {
-                          className: "p-2.5 sm:p-3 font-bold text-slate-900",
+                        u.jsx("th", { className: "p-2.5 text-center w-[14%]", children: "카테고리" }),
+                        u.jsx("th", { className: "p-2.5 w-[26%]", children: "특약명" }),
+                        u.jsx("th", { className: "p-2.5 text-center w-[27%]", children: "권장 보장금액" }),
+                        u.jsx("th", { className: "p-2.5 w-[33%]", children: "핵심 설계 포인트" })
+                      ]
+                    })
+                  }),
+                  u.jsx("tbody", {
+                    className: "divide-y divide-slate-200 text-xs",
+                    children: filteredData.map(cat => 
+                      cat.items.map((item, idx) => u.jsxs("tr", {
+                        key: item.name,
+                        className: "hover:bg-blue-50/40 transition-colors",
+                        children: [
+                          idx === 0 ? u.jsx("td", {
+                            rowSpan: cat.items.length,
+                            className: "p-2.5 font-black text-slate-800 bg-slate-50/80 border-r border-slate-200 text-center text-xs align-middle",
+                            children: cat.category
+                          }) : null,
+                          u.jsxs("td", {
+                            className: "p-2.5 font-bold text-slate-900",
+                            children: [
+                              u.jsx("span", { children: item.name }),
+                              item.badge && u.jsx("span", {
+                                className: `ml-1.5 px-1.5 py-0.2 rounded text-[10px] font-bold border ${item.badgeClass}`,
+                                children: item.badge
+                              })
+                            ]
+                          }),
+                          u.jsx("td", {
+                            className: "p-2.5 text-center font-extrabold text-blue-700 text-xs whitespace-nowrap tabular-nums",
+                            children: item.amount
+                          }),
+                          u.jsx("td", {
+                            className: "p-2.5 text-slate-600 text-[11.5px] leading-relaxed",
+                            children: item.point
+                          })
+                        ]
+                      }))
+                    )
+                  })
+                ]
+              })
+            }),
+
+            /* 2. 모바일 전용 반응형 카드 뷰 (sm 미만) */
+            u.jsx("div", {
+              className: "block sm:hidden space-y-3",
+              children: filteredData.map(cat => u.jsxs("div", {
+                key: cat.category,
+                className: "bg-white border border-slate-200 rounded-xl overflow-hidden shadow-2xs",
+                children: [
+                  /* 모바일 카테고리 헤더 */
+                  u.jsxs("div", {
+                    className: "bg-slate-100/90 px-3 py-1.5 border-b border-slate-200 flex items-center justify-between",
+                    children: [
+                      u.jsx("span", { className: "text-xs font-black text-slate-800", children: cat.category }),
+                      u.jsxs("span", { className: "text-[10px] text-slate-500 font-semibold", children: [cat.items.length, "개 특약"] })
+                    ]
+                  }),
+                  /* 모바일 특약 카드 목록 */
+                  u.jsx("div", {
+                    className: "divide-y divide-slate-100",
+                    children: cat.items.map(item => u.jsxs("div", {
+                      key: item.name,
+                      className: "p-2.5 hover:bg-slate-50 transition-colors",
+                      children: [
+                        u.jsxs("div", {
+                          className: "flex items-start justify-between gap-1.5",
                           children: [
-                            u.jsx("span", { children: item.name }),
-                            item.badge && u.jsx("span", {
-                              className: `ml-1.5 px-1.5 py-0.2 rounded text-[10px] font-bold border ${item.badgeClass}`,
-                              children: item.badge
+                            u.jsxs("div", {
+                              className: "flex-1 min-w-0",
+                              children: [
+                                u.jsx("div", {
+                                  className: "text-xs font-bold text-slate-900 leading-tight",
+                                  children: item.name
+                                }),
+                                item.badge && u.jsx("span", {
+                                  className: `inline-block mt-1 px-1.5 py-0.2 rounded text-[9.5px] font-bold border ${item.badgeClass}`,
+                                  children: item.badge
+                                })
+                              ]
+                            }),
+                            u.jsx("div", {
+                              className: "text-right shrink-0",
+                              children: u.jsx("span", {
+                                className: "text-xs font-black text-blue-700 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-md inline-block",
+                                children: item.amount
+                              })
                             })
                           ]
                         }),
-                        u.jsx("td", {
-                          className: "p-2.5 sm:p-3 text-center font-extrabold text-blue-700 sm:text-[13px] whitespace-nowrap tabular-nums",
-                          children: item.amount
-                        }),
-                        u.jsx("td", {
-                          className: "p-2.5 sm:p-3 text-slate-600 text-[11px] sm:text-xs leading-relaxed",
-                          children: item.point
+                        u.jsxs("div", {
+                          className: "mt-1.5 text-[10.5px] text-slate-600 bg-slate-50 border border-slate-100 rounded-lg p-1.5 leading-relaxed",
+                          children: [
+                            u.jsx("span", { className: "font-bold text-slate-500 mr-1", children: "💡 포인트:" }),
+                            item.point
+                          ]
                         })
                       ]
                     }))
-                  )
-                })
-              ]
+                  })
+                ]
+              }))
             })
-          })
+          ]
         }),
+
+        /* 하단 푸터 */
         u.jsxs("div", {
-          className: "bg-slate-50 border-t border-slate-200 p-3 sm:p-4 px-4 sm:px-6 flex items-center justify-between text-xs text-slate-500 shrink-0",
+          className: "bg-slate-50 border-t border-slate-200 p-2.5 sm:p-3 px-3 sm:px-6 flex items-center justify-between text-[11px] sm:text-xs text-slate-500 shrink-0",
           children: [
-            u.jsx("span", { className: "font-medium", children: "💡 실손의료비와 연계하여 중복보장 및 고액 치료비를 대비하는 표준 가이드입니다." }),
+            u.jsx("span", { className: "font-medium truncate mr-2", children: "※ 실손의료비와 중복되지 않는 가성비 중심 권장안입니다." }),
             u.jsx("button", {
               type: "button",
               onClick: onClose,
-              className: "px-4 py-2 rounded-xl text-xs font-bold bg-slate-200 hover:bg-slate-300 text-slate-700 transition cursor-pointer active:scale-95",
+              className: "px-3.5 sm:px-4 py-1.5 rounded-xl text-xs font-bold text-slate-700 bg-white border border-slate-300 hover:bg-slate-100 transition shadow-2xs cursor-pointer shrink-0 active:scale-95",
               children: "닫기"
             })
           ]
@@ -3695,5 +3770,4 @@ const StandardGuideModal = ({ isOpen, onClose, onOpenCoreCoverage }) => {
     })
   });
 };
-
 const CP=({isOpen:n,onClose:e,records:t,onViewDetailRecord:r,customFamilyOrder:A,onOpenGuideModal:onOpenGuideModal})=>{const[i,l]=Qe.useState("idle"),[o,c]=Qe.useState("ALL"),[d,h]=Qe.useState(()=>typeof window>"u"?!1:window.innerWidth<768||/iPhone|iPad|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));Qe.useEffect(()=>{const C=()=>{h(window.innerWidth<768||/iPhone|iPad|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))};return window.addEventListener("resize",C),()=>window.removeEventListener("resize",C)},[]);const v=Qe.useMemo(()=>yP(t,void 0,A),[t,A]);if(Qe.useEffect(()=>{var F;if(!n)return;const C=BP(v);(F=window.electronAPI)!=null&&F.updateMobileServerContent&&window.electronAPI.updateMobileServerContent(C).catch(S=>console.error(S))},[n,v]),!n)return null;const w=async()=>{try{l("word");const C=bP(v),F=`가족_핵심보장비교표_${new Date().toISOString().slice(0,10)}.doc`;await Wk(C,F)}catch(C){console.error("Word export error:",C),alert("워드 파일 저장 중 오류가 발생했습니다: "+C.message)}finally{l("idle")}},g=async()=>{try{l("pdf");const C=x3(v),F=`가족_핵심보장비교표_${new Date().toISOString().slice(0,10)}.pdf`;await Yk(C,F)}catch(C){console.error("PDF export error:",C),alert("PDF 파일 저장 중 오류가 발생했습니다: "+C.message)}finally{l("idle")}},N=()=>{const C=x3(v),F=window.open("","_blank","width=1150,height=850");F&&(F.document.open(),F.document.write(C),F.document.close(),setTimeout(()=>{F.focus(),F.print()},350))};return d?u.jsx("div",{className:"fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-xs flex flex-col justify-end sm:justify-center p-0 sm:p-3",children:u.jsxs("div",{className:"bg-slate-100 w-full h-[95dvh] sm:h-[90vh] sm:max-w-md mx-auto rounded-t-[32px] sm:rounded-3xl shadow-2xl flex flex-col overflow-hidden animate-in slide-in-from-bottom duration-250",children:[u.jsx("div",{className:"flex sm:hidden justify-center pt-3 pb-1 bg-gradient-to-r from-blue-700 via-indigo-600 to-blue-600 cursor-grab shrink-0",children:u.jsx("div",{className:"w-12 h-1.5 bg-white/40 rounded-full"})}),u.jsxs("div",{className:"bg-gradient-to-r from-blue-700 via-indigo-600 to-blue-600 text-white p-4 shrink-0 shadow-md",children:[u.jsxs("div",{className:"flex justify-between items-center mb-1",children:[u.jsxs("div",{className:"flex items-center space-x-2",children:[u.jsx(uc,{className:"w-5 h-5 text-white"}),u.jsx("h2",{className:"text-base font-black tracking-tight",children:"가족 10대 핵심보장"})]}),u.jsxs("div",{className:"flex items-center space-x-1.5",children:[u.jsxs("button",{onClick:w,disabled:i!=="idle",className:"px-2.5 py-1 text-[11px] font-bold bg-white/20 hover:bg-white/30 rounded-lg text-white transition flex items-center space-x-1",title:"워드 다운로드",children:[i==="word"?u.jsx(bf,{className:"w-3.5 h-3.5 animate-spin"}):u.jsx(yf,{className:"w-3.5 h-3.5"}),u.jsx("span",{children:i==="word"?"생성 중":"워드"})]}),u.jsxs("button",{onClick:g,disabled:i!=="idle",className:"px-2.5 py-1 text-[11px] font-bold bg-white/20 hover:bg-white/30 rounded-lg text-white transition flex items-center space-x-1",title:"PDF 다운로드",children:[i==="pdf"?u.jsx(bf,{className:"w-3.5 h-3.5 animate-spin"}):u.jsx(yf,{className:"w-3.5 h-3.5"}),u.jsx("span",{children:i==="pdf"?"생성 중":"PDF"})]}),onOpenGuideModal&&u.jsxs("button",{type:"button",onClick:()=>{e(),onOpenGuideModal()},className:"px-2.5 py-1 text-[11px] font-bold bg-amber-400 hover:bg-amber-500 text-slate-900 rounded-lg transition flex items-center space-x-1 ml-1 cursor-pointer shadow-xs",title:"보험 핵심 특약 권장 보장금액 요약표 열기",children:[u.jsx("span",{children:"📋 권장가이드"})]}),u.jsx("button",{onClick:e,className:"p-1 rounded-full bg-white/20 hover:bg-white/30 text-white transition ml-1",children:u.jsx(xs,{className:"w-5 h-5"})})]})]}),u.jsx("p",{className:"text-[11px] text-blue-100 font-medium",children:"암 · 뇌 · 심장 · 후유장해 · 수술비 · 주요치료비 비교"})]}),u.jsxs("div",{className:"bg-white border-b border-slate-200 p-2 overflow-x-auto flex space-x-1.5 no-scrollbar shrink-0 shadow-2xs",children:[u.jsx("button",{type:"button",onClick:()=>c("ALL"),className:`px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition ${o==="ALL"?"bg-blue-600 text-white shadow-xs":"bg-slate-100 text-slate-600 hover:bg-slate-200"}`,children:"👥 전체 비교"}),v.members.map(C=>u.jsxs("button",{type:"button",onClick:()=>c(C.memberName),className:`px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition ${o===C.memberName?"bg-blue-600 text-white shadow-xs":"bg-slate-100 text-slate-600 hover:bg-slate-200"}`,children:["👤 ",C.memberName]},C.memberName))]}),u.jsx("div",{className:"p-3 overflow-y-auto flex-1 space-y-3 text-xs",children:o!=="ALL"?(()=>{const C=v.members.find(F=>F.memberName===o);return C?lc.map((F,S)=>{const k=C.coverages[F.id],P=k&&k.isCovered;return u.jsxs("div",{className:"bg-white rounded-2xl p-3.5 border border-slate-200 shadow-2xs",children:[u.jsxs("div",{className:"flex justify-between items-start border-b border-slate-100 pb-2 mb-2",children:[u.jsxs("div",{children:[u.jsxs("div",{className:"font-extrabold text-slate-900 text-sm flex items-center space-x-1",children:[u.jsxs("span",{className:"text-blue-600 font-black",children:[S+1,"."]}),u.jsx("span",{children:F.title})]}),u.jsx("div",{className:"text-[10.5px] text-slate-400 mt-0.5",children:F.description})]}),u.jsx("span",{className:`px-2 py-0.5 rounded-full text-[11px] font-bold ${P?"bg-blue-100 text-blue-800":"bg-slate-100 text-slate-400"}`,children:P?"가입":"미가입"})]}),P?u.jsxs(u.Fragment,{children:[u.jsxs("div",{className:"bg-blue-50/80 rounded-xl p-2.5 flex justify-between items-center mb-2",children:[u.jsxs("span",{className:"text-blue-900 font-bold text-[11px]",children:[C.memberName," 님 총 보장금액"]}),u.jsx("span",{className:"text-blue-700 font-black text-sm",children:k.totalAmountText})]}),u.jsx("div",{className:"space-y-1.5",children:k.items.map((O,J)=>u.jsxs("button",{type:"button",onClick:()=>r(O.originalRecord),className:`w-full text-left p-2.5 rounded-xl transition ${O.isPrimary?"bg-rose-50/80 border-2 border-rose-200 hover:bg-rose-100/80 shadow-2xs":"bg-slate-50 hover:bg-blue-50 border border-slate-200"}`,children:[u.jsxs("div",{className:"flex justify-between items-center font-bold text-slate-900 text-[11px]",children:[u.jsxs("div",{className:"flex items-center space-x-1",children:[O.isPrimary&&u.jsx("span",{className:"px-1.5 py-0.2 bg-rose-600 text-white rounded-md text-[9px] font-black",children:O.label||"핵심"}),u.jsxs("span",{className:O.isPrimary?"text-rose-900 font-bold":"text-slate-800",children:["[",O.company,"]"]})]}),u.jsx("span",{className:"text-slate-900 font-extrabold",children:O.amountText})]}),u.jsx("div",{className:"text-slate-600 truncate text-[11px] mt-0.5",children:O.policyName}),u.jsxs("div",{className:"text-slate-500 text-[10px] truncate mt-0.5 flex justify-between items-center",children:[u.jsxs("span",{className:"truncate",children:["• ",O.riderName]}),u.jsx("span",{className:"text-blue-600 font-bold shrink-0 ml-1",children:"약관보기 ↗"})]})]},J))})]}):u.jsx("div",{className:"py-2 text-center text-slate-400 text-[11px]",children:"가입된 보장이 없습니다."})]},F.id)}):null})():lc.map((C,F)=>u.jsxs("div",{className:"bg-white rounded-2xl p-3.5 border border-slate-200 shadow-2xs",children:[u.jsx("div",{className:"border-b-2 border-blue-600 pb-1.5 mb-2 flex justify-between items-center",children:u.jsxs("div",{children:[u.jsxs("div",{className:"font-extrabold text-blue-950 text-sm",children:[u.jsxs("span",{className:"text-blue-600 font-black mr-1",children:[F+1,"."]}),u.jsx("span",{children:C.title})]}),u.jsx("div",{className:"text-[10px] text-slate-400 mt-0.5",children:C.description})]})}),u.jsx("div",{className:"divide-y divide-slate-100",children:v.members.map(S=>{const k=S.coverages[C.id],P=k&&k.isCovered;return u.jsxs("div",{onClick:()=>c(S.memberName),className:"py-2 flex justify-between items-center cursor-pointer hover:bg-slate-50 px-1 rounded-lg transition",children:[u.jsxs("div",{className:"font-bold text-slate-800 text-xs",children:["👤 ",S.memberName,S.relation&&u.jsxs("span",{className:"text-[10px] text-slate-400 ml-1 font-normal",children:["(",S.relation,")"]})]}),u.jsxs("div",{className:"text-right",children:[u.jsx("span",{className:`font-black text-xs ${P?"text-blue-700":"text-slate-400 font-normal"}`,children:P?k.totalAmountText:"미가입"}),u.jsx("span",{className:"text-slate-300 ml-1",children:"›"})]})]},S.memberName)})})]},C.id))}),u.jsx("div",{className:"bg-white p-3 border-t border-slate-200 flex justify-end shrink-0",children:u.jsx("button",{onClick:e,className:"w-full py-2.5 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition",children:"닫기"})})]})}):u.jsx("div",{className:"fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto",children:u.jsxs("div",{className:"bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-7xl max-h-[96vh] flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-150",children:[u.jsxs("div",{className:"px-6 py-3.5 border-b border-slate-200 flex items-center justify-between bg-slate-50/95 gap-3",children:[u.jsxs("div",{className:"flex items-center space-x-3",children:[u.jsx("div",{className:"w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center shadow-md shadow-blue-500/20 shrink-0",children:u.jsx(uc,{className:"w-5 h-5"})}),u.jsxs("div",{children:[u.jsxs("div",{className:"flex items-center space-x-2",children:[u.jsx("h2",{className:"text-base font-bold text-slate-900 tracking-tight",children:"가족 핵심보장(10대 주요보장) 비교 분석표"}),u.jsx("span",{className:"px-2 py-0.5 text-[11px] font-semibold bg-blue-100 text-blue-800 rounded-full",children:"10대 보장 완벽 분석"})]}),u.jsx("p",{className:"text-xs text-slate-500 mt-0.5",children:"가족별 가입 여부 및 가입된 보험사·상품별 보장금액 비교 (항목 클릭 시 상세 약관 확인)"})]})]}),u.jsxs("div",{className:"flex items-center space-x-2",children:[u.jsx("button",{onClick:w,disabled:i!=="idle",className:"flex items-center space-x-1.5 px-3 py-2 bg-blue-50 hover:bg-blue-100 text-blue-800 border border-blue-200 text-xs font-bold rounded-xl shadow-2xs transition disabled:opacity-50",title:"MS Word(.doc) 문서로 저장합니다",children:i==="word"?u.jsxs(u.Fragment,{children:[u.jsx(bf,{className:"w-3.5 h-3.5 text-blue-700 animate-spin"}),u.jsx("span",{children:"워드 생성 중..."})]}):u.jsxs(u.Fragment,{children:[u.jsx(yf,{className:"w-3.5 h-3.5 text-blue-700"}),u.jsx("span",{children:"워드 저장"})]})}),u.jsx("button",{onClick:g,disabled:i!=="idle",className:"flex items-center space-x-1.5 px-3 py-2 bg-rose-50 hover:bg-rose-100 text-rose-800 border border-rose-200 text-xs font-bold rounded-xl shadow-2xs transition disabled:opacity-50",title:"A4 가로 PDF 파일로 저장합니다",children:i==="pdf"?u.jsxs(u.Fragment,{children:[u.jsx(bf,{className:"w-3.5 h-3.5 text-rose-700 animate-spin"}),u.jsx("span",{children:"PDF 생성 중..."})]}):u.jsxs(u.Fragment,{children:[u.jsx(yf,{className:"w-3.5 h-3.5 text-rose-700"}),u.jsx("span",{children:"PDF 저장"})]})}),u.jsx("button",{onClick:N,className:"p-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl transition",title:"인쇄 미리보기",children:u.jsx(A7,{className:"w-3.5 h-3.5 text-slate-600"})}),u.jsx("button",{onClick:e,className:"text-slate-400 hover:text-slate-700 p-1.5 rounded-lg hover:bg-slate-200 transition ml-1",children:u.jsx(xs,{className:"w-5 h-5"})})]})]}),u.jsxs("div",{className:"px-6 py-2 bg-blue-50/70 border-b border-blue-100 flex items-center justify-between text-xs text-blue-900 flex-wrap gap-2",children:[u.jsxs("div",{className:"flex items-center space-x-2 font-medium flex-wrap gap-1",children:[u.jsx(wu,{className:"w-3.5 h-3.5 text-blue-600 shrink-0"}),u.jsxs("span",{children:["총 ",v.members.length,"명의 가족 구성원 실제 증권 데이터 분석 완료"]}),u.jsx("span",{className:"text-slate-300",children:"|"}),u.jsx("span",{className:"text-blue-700 font-bold bg-blue-100/70 px-2 py-0.5 rounded-md",children:"💡 각 보험 항목을 클릭하면 약관 및 보장 상세정보(지급기준)가 표시됩니다"}),u.jsxs("span",{className:"inline-flex items-center gap-1 text-[10.5px] font-bold text-rose-700 bg-rose-50 border border-rose-200 px-2 py-0.5 rounded-md",children:[u.jsx("span",{className:"w-1.5 h-1.5 rounded-full bg-rose-600 inline-block"}),"핵심 보장 (은은한 붉은색)"]})]}),u.jsxs("span",{className:"text-slate-500 text-[11px] font-semibold",children:[v.baseDate," 기준"]})]}),u.jsxs("div",{className:"p-6 overflow-y-auto flex-1 bg-slate-50/40",children:[u.jsx("div",{className:"border border-slate-300 rounded-xl bg-white shadow-xs",children:u.jsxs("table",{className:"w-full text-left border-collapse table-fixed text-xs",children:[u.jsx("thead",{className:"sticky top-0 z-20 shadow-xs",children:u.jsxs("tr",{className:"bg-slate-100 text-slate-800 font-bold border-b border-slate-300",children:[u.jsx("th",{className:"sticky top-0 z-20 py-3 px-2 w-32 sm:w-36 text-center border-r border-b border-slate-300 text-slate-900 bg-slate-200 shadow-xs shrink-0",children:"보장 구분"}),v.members.map(C=>u.jsxs("th",{className:"sticky top-0 z-20 py-3 px-3 text-center border-r last:border-r-0 border-b border-slate-300 bg-slate-100 shadow-xs",children:[u.jsx("div",{className:"text-sm font-bold text-slate-900",children:C.memberName}),C.relation&&u.jsxs("div",{className:"text-[11px] font-semibold text-blue-600 mt-0.5",children:["(",C.relation,")"]})]},C.memberName))]})}),u.jsx("tbody",{children:lc.map((C,F)=>u.jsxs("tr",{className:"border-b last:border-b-0 border-slate-200 hover:bg-slate-50/50 transition",children:[u.jsxs("td",{className:"py-2.5 px-2.5 w-32 sm:w-36 border-r border-slate-300 bg-slate-100/90 font-bold align-top shrink-0",children:[u.jsxs("div",{className:"flex items-center space-x-1.5 text-slate-900",children:[u.jsx("span",{className:"w-4 h-4 rounded-full bg-blue-100 text-blue-800 flex items-center justify-center text-[9px] font-black shrink-0",children:F+1}),u.jsx("span",{className:"text-xs font-bold tracking-tight",children:C.title})]}),u.jsx("div",{className:"text-[9.5px] text-slate-500 font-normal mt-1 leading-tight",children:C.description})]}),v.members.map(S=>{const k=S.coverages[C.id],P=k&&k.isCovered;return u.jsx("td",{className:`py-3 px-2.5 border-r last:border-r-0 border-slate-200 align-top transition-colors ${P?"bg-white":"bg-slate-50/30"}`,children:P?u.jsxs("div",{className:"space-y-1.5",children:[u.jsxs("div",{className:"flex items-center justify-between bg-blue-50/90 border border-blue-200/80 rounded-lg px-2 py-1",children:[u.jsxs("div",{className:"flex items-center space-x-1",children:[u.jsx($m,{className:"w-3.5 h-3.5 text-blue-600"}),u.jsx("span",{className:"text-[10.5px] font-bold text-blue-800",children:"가입"})]}),u.jsx("span",{className:"font-extrabold text-blue-900 text-xs",children:k.totalAmountText})]}),u.jsx("div",{className:"space-y-1",children:k.items.map((O,J)=>u.jsxs("button",{type:"button",onClick:()=>r(O.originalRecord),className:`w-full text-left p-1.5 rounded-md transition group cursor-pointer ${O.isPrimary?"bg-rose-50/80 border border-rose-200 hover:bg-rose-100/90 hover:border-rose-300 shadow-2xs":"bg-slate-50 hover:bg-slate-100 border border-slate-200 hover:border-slate-300"}`,title:"클릭하여 상세 약관 및 지급 기준 확인",children:[u.jsxs("div",{className:"flex items-center justify-between text-[11px]",children:[u.jsxs("div",{className:"flex items-center space-x-1 truncate max-w-[130px]",children:[O.isPrimary&&u.jsx("span",{className:"px-1 py-0.2 bg-rose-600 text-white rounded text-[8.5px] font-black shrink-0",children:O.label||"핵심"}),u.jsxs("span",{className:`font-bold truncate ${O.isPrimary?"text-rose-950":"text-slate-800"}`,children:["[",O.company,"]"]})]}),u.jsx("span",{className:"font-extrabold text-slate-900 text-[11px] shrink-0 ml-1",children:O.amountText})]}),u.jsx("div",{className:"text-[10px] text-slate-600 truncate mt-0.5 group-hover:text-blue-700",title:O.policyName,children:O.policyName}),u.jsxs("div",{className:"text-[9.5px] text-slate-400 truncate mt-0.5",title:O.riderName,children:["• ",O.riderName]})]},J))})]}):u.jsxs("div",{className:"h-full min-h-[60px] flex flex-col items-center justify-center text-slate-400 py-2",children:[u.jsx(z8,{className:"w-4 h-4 text-slate-300 mb-1"}),u.jsx("span",{className:"text-[11px] font-medium",children:"미가입"})]})},S.memberName)})]},C.id))})]})}),u.jsx("div",{className:"mt-3 text-[11px] text-slate-400 text-right",children:"※ 본 표는 등록된 실제 증권 데이터에서 10대 핵심보장 항목을 정확히 추출 및 분류한 결과입니다."})]}),u.jsxs("div",{className:"px-6 py-3 border-t border-slate-200 bg-slate-50 flex items-center justify-between",children:[u.jsx("div",{className:"flex items-center space-x-2 text-xs text-slate-500",children:u.jsx("span",{children:"각 항목을 클릭하면 상세 약관 정보를 확인하실 수 있습니다."})}),u.jsxs("div",{className:"flex items-center space-x-2",children:[u.jsx("button",{onClick:w,disabled:i!=="idle",className:"px-3.5 py-1.5 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 text-xs font-semibold rounded-lg shadow-2xs transition disabled:opacity-50",children:i==="word"?"워드 생성 중...":"워드 저장"}),u.jsx("button",{onClick:g,disabled:i!=="idle",className:"px-3.5 py-1.5 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 text-xs font-semibold rounded-lg shadow-2xs transition disabled:opacity-50",children:i==="pdf"?"PDF 생성 중...":"PDF 저장"}),u.jsx("button",{onClick:e,className:"px-4 py-1.5 text-xs font-bold text-white bg-slate-800 hover:bg-slate-900 rounded-lg shadow-2xs transition",children:"닫기"})]})]})]})})},NP=Object.freeze(Object.defineProperty({__proto__:null,CoreCoverageModal:CP},Symbol.toStringTag,{value:"Module"}));
